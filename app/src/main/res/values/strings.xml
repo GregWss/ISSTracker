@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">ISSTracker</string>
     <string name="iss_pos_request_btn">Get position!</string>
-    <string name="iss_request_text">Get position!</string>
+    <string name="iss_request_text">Get your first position</string>
 </resources>
