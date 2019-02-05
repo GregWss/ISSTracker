@@ -10,7 +10,7 @@
         android:id="@+id/requete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get Position !" />
+        android:text="@string/iss_pos_request_btn" />
 
     <TextView
         android:id="@+id/res_requete"
@@ -20,6 +20,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:text="Get your first position" />
+        android:text="@string/iss_request_text" />
 
 </RelativeLayout>

@@ -25,12 +25,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Bouton qui fait la requête lorsque cliqué
-        Button requete = (Button) findViewById(R.id.requete);
-        requete.setOnClickListener(new View.OnClickListener() {
+        // ISS pos request btn
+        Button btn_request = (Button) findViewById(R.id.requete);
+
+        btn_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final TextView affichageReq = (TextView) findViewById(R.id.res_requete);
+                final TextView iss_pos_text = (TextView) findViewById(R.id.res_requete);
 
                 // Instantiate the RequestQueue.
                 RequestQueue queue;
@@ -56,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(String response) {
                                 // Display the response string.
                                 //ISSInfoSource source = new ISSInfoSource(response);
-                                affichageReq.setText(response);
+                                iss_pos_text.setText(response);
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        affichageReq.setText("That didn't work!");
+                        iss_pos_text.setText("That didn't work!");
                     }
                 });
 
