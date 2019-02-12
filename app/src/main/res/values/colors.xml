@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <!-- Preview: https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=424242&secondary.color=FFA726
+         Material color category : 400 -->
+    <color name="colorPrimary">#424242</color>
+    <color name="colorPrimaryDark">#1b1b1b</color>
+    <color name="colorPrimaryLight">#6d6d6d</color>
+    <color name="colorPrimaryText">#ffffff</color>
+
+    <color name="colorSecondary">#ffa726</color>
+    <color name="colorSecondaryDark">#c77800</color>
+    <color name="colorSecondaryLight">#ffd95b</color>
+    <color name="colorSecondaryText">#000000</color>
+
     <color name="colorAccent">#D81B60</color>
 </resources>

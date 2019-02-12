@@ -1,11 +1,11 @@
 
-package uqac.ca.isstracker;
+package uqac.ca.isstracker.Model;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class IssPosition {
-
+public class ISSPosition
+{
     private String longitude;
     private String latitude;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -14,41 +14,47 @@ public class IssPosition {
      * No args constructor for use in serialization
      * 
      */
-    public IssPosition() {
-    }
+    public ISSPosition() { }
 
     /**
      * 
      * @param longitude
      * @param latitude
      */
-    public IssPosition(String longitude, String latitude) {
+    public ISSPosition(String longitude, String latitude)
+    {
         super();
         this.longitude = longitude;
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public String getLongitude()
+    {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(String longitude)
+    {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public String getLatitude()
+    {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(String latitude)
+    {
         this.latitude = latitude;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
+    public Map<String, Object> getAdditionalProperties()
+    {
         return this.additionalProperties;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
+    public void setAdditionalProperty(String name, Object value)
+    {
         this.additionalProperties.put(name, value);
     }
 

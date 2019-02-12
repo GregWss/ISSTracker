@@ -1,4 +1,4 @@
-package uqac.ca.isstracker;
+package uqac.ca.isstracker.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,19 +18,24 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 
-public class MainActivity extends AppCompatActivity {
+import uqac.ca.isstracker.R;
 
+public class MainActivity extends AppCompatActivity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // ISS pos request btn
-        Button btn_request = (Button) findViewById(R.id.requete);
+        Button btn_request = findViewById(R.id.requete);
 
-        btn_request.setOnClickListener(new View.OnClickListener() {
+        btn_request.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 final TextView iss_pos_text = (TextView) findViewById(R.id.res_requete);
 
                 // Instantiate the RequestQueue.
@@ -52,19 +57,24 @@ public class MainActivity extends AppCompatActivity {
 
                 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
+                        new Response.Listener<String>()
+                        {
                             @Override
-                            public void onResponse(String response) {
+                            public void onResponse(String response)
+                            {
                                 // Display the response string.
                                 //ISSInfoSource source = new ISSInfoSource(response);
                                 iss_pos_text.setText(response);
                             }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        iss_pos_text.setText("That didn't work!");
-                    }
-                });
+                        }, new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error)
+                            {
+                                iss_pos_text.setText("That didn't work!");
+                            }
+                        }
+                );
 
                 // Add the request to the RequestQueue.
                 queue.add(stringRequest);

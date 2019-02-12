@@ -1,12 +1,12 @@
 
-package uqac.ca.isstracker;
+package uqac.ca.isstracker.Model;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ISSInfoSource {
-
-    private IssPosition issPosition;
+public class ISSInfoSource
+{
+    private ISSPosition issPosition;
     private Integer timestamp;
     private String message;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -15,8 +15,7 @@ public class ISSInfoSource {
      * No args constructor for use in serialization
      * 
      */
-    public ISSInfoSource() {
-    }
+    public ISSInfoSource() { }
 
     /**
      * 
@@ -24,18 +23,19 @@ public class ISSInfoSource {
      * @param timestamp
      * @param issPosition
      */
-    public ISSInfoSource(IssPosition issPosition, Integer timestamp, String message) {
+    public ISSInfoSource(ISSPosition issPosition, Integer timestamp, String message)
+    {
         super();
         this.issPosition = issPosition;
         this.timestamp = timestamp;
         this.message = message;
     }
 
-    public IssPosition getIssPosition() {
+    public ISSPosition getIssPosition() {
         return issPosition;
     }
 
-    public void setIssPosition(IssPosition issPosition) {
+    public void setIssPosition(ISSPosition issPosition) {
         this.issPosition = issPosition;
     }
 

@@ -2,4 +2,12 @@
     <string name="app_name">ISSTracker</string>
     <string name="iss_pos_request_btn">Get position!</string>
     <string name="iss_request_text">Get your first position</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_humans">HumansActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>
