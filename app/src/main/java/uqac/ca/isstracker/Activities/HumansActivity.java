@@ -74,8 +74,6 @@ public class HumansActivity extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(MenuItem item)
     {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
         switch(item.getItemId())
         {
             case R.id.nav_camera:
