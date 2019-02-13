@@ -13,8 +13,21 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.FontStyle" parent="@android:style/TextAppearance.Large">
+    <style name="ToolBarStyle" parent="AppTheme">
+        <item name="android:fontFamily">@font/neris_light</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryText</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.MajorFont" parent="@android:style/TextAppearance.Large">
         <item name="android:fontFamily">@font/major_mono_display_regular</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="AppTheme.NerisFont" parent="@android:style/TextAppearance.Large">
+        <item name="android:fontFamily">@font/neris_light</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 

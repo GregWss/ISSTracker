@@ -8,17 +8,12 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="action_global_dashboardActivity">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
                   <entry key="dashboardActivity">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-242" />
+                            <option name="x" value="-245" />
                             <option name="y" value="-118" />
                           </Point>
                         </option>
@@ -30,20 +25,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-498" />
-                            <option name="y" value="-35" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="mainActivity">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="193" />
-                            <option name="y" value="58" />
+                            <option name="x" value="-553" />
+                            <option name="y" value="-49" />
                           </Point>
                         </option>
                       </LayoutPositions>

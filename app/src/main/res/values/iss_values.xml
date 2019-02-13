@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Static values -->
+    <string name="iss_speed_sentence">iss speed:</string>
+    <string name="iss_speed_value_metric">7,66 km/s</string>
+    <string name="iss_speed_value_imperial">17.100 mph</string>
+
+    <string name="iss_orbit_height_sentence">iss orbit height:</string>
+    <string name="iss_orbit_height_value_metric">408 km</string>
+    <string name="iss_orbit_height_value_imperial">253,519 miles</string>
+    
+    <string name="iss_orbits_per_day_sentence">iss orbits per day:</string>
+    <string name="iss_orbits_per_day_value">15.54</string>
+
+    <string name="iss_orbital_disintegration">iss orbital disintegration:</string>
+    <string name="iss_orbital_disintegration_value_metric">2 km/month</string>
+    <string name="iss_orbital_disintegration_value_imperial">1.24 km/month</string>
+
+    <string name="iss_launch_date">Wednesday 20 November 1998</string> <!-- Intended for code-use -->
+
+    <!-- API values sentences -->
+</resources>

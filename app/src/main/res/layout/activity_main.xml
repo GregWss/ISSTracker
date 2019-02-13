@@ -19,6 +19,6 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:text="@string/iss_request_text"
-        android:textAppearance="@style/AppTheme.FontStyle" />
+        android:textAppearance="@style/AppTheme.MajorFont" />
 
 </RelativeLayout>
