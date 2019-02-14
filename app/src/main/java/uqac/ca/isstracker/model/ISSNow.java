@@ -10,11 +10,10 @@ public class ISSNow
     private float issLatitude;
     private String message;
 
-    public ISSNow(String requestResponse)
+    public ISSNow(JSONObject obj)
     {
         try
         {
-            JSONObject obj = new JSONObject(requestResponse);
             timeStamp = obj.getInt("timestamp");
             JSONObject position = obj.getJSONObject("iss_position");
             issLongitude = Float.parseFloat(position.getString("longitude"));

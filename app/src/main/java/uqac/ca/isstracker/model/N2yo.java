@@ -10,12 +10,11 @@ public class N2yo
     private int satId;
     private ArrayList<ISSPosition> positions;
 
-    public N2yo(String requestResponse)
+    public N2yo(JSONObject obj)
     {
         positions = new ArrayList<>();
         try
         {
-            JSONObject obj = new JSONObject(requestResponse);
             JSONObject info = obj.getJSONObject("info");
             satname = info.getString("satname");
             satId = info.getInt("satid");

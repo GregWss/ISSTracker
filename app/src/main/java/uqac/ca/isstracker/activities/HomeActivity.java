@@ -35,7 +35,7 @@ import static com.android.volley.Request.Method.GET;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-    public static final String TAG = "VolleyRequest";
+    public static final String TAG = "ACTIVITY - HOME";
 
     private ISSNow issNowData;
     private ISSAstros issAstrosData;
@@ -192,7 +192,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     public void onResponse(JSONObject response)
                     {
                         open_notify_iss_now_received = true;
-                        issNowData = new ISSNow(response.toString());
+                        issNowData = new ISSNow(response);
                         setValues();
                     }
                 }, new Response.ErrorListener()
@@ -213,7 +213,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     public void onResponse(JSONObject response)
                     {
                         open_notify_astros_received = true;
-                        issAstrosData = new ISSAstros(response.toString());
+                        issAstrosData = new ISSAstros(response);
                         setValues();
                     }
                 }, new Response.ErrorListener()
@@ -234,7 +234,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     public void onResponse(JSONObject response)
                     {
                         n2yo_received = true;
-                        n2yoData = new N2yo(response.toString());
+                        n2yoData = new N2yo(response);
                         setValues();
                     }
                 }, new Response.ErrorListener()

@@ -10,12 +10,11 @@ public class ISSAstros
     private int number;
     private String message;
 
-    public ISSAstros(String requestResponse)
+    public ISSAstros(JSONObject obj)
     {
         astros = new ArrayList<>();
         try
         {
-            JSONObject obj = new JSONObject(requestResponse);
             JSONArray astrosArray = obj.getJSONArray("people");
             for (int i = 0; i < astrosArray.length(); i++)
                 astros.add(
