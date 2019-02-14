@@ -5,6 +5,7 @@
     <string name="iss_request_text">Get your first position</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_dashboard">Dashboard</string>
     <string name="action_settings">Settings</string>
 
     <!-- Home activity -->

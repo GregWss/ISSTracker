@@ -1,5 +1,5 @@
 
-package uqac.ca.isstracker.Model;
+package uqac.ca.isstracker.model;
 
 import java.util.HashMap;
 import java.util.Map;

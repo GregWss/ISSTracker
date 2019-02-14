@@ -1,4 +1,4 @@
-package uqac.ca.isstracker.Activities;
+package uqac.ca.isstracker.activities;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;

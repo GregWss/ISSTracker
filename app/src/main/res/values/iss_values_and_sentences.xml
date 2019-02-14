@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Static values -->
+    <!-- Static values and sentences -->
     <string name="iss_speed_sentence">iss speed:</string>
     <string name="iss_speed_value_metric">7,66 km/s</string>
     <string name="iss_speed_value_imperial">17.100 mph</string>
 
     <string name="iss_orbit_height_sentence">iss orbit height:</string>
     <string name="iss_orbit_height_value_metric">408 km</string>
-    <string name="iss_orbit_height_value_imperial">253,519 miles</string>
+    <string name="iss_orbit_height_value_imperial">253 miles</string>
     
     <string name="iss_orbits_per_day_sentence">iss orbits per day:</string>
     <string name="iss_orbits_per_day_value">15.54</string>
@@ -18,5 +18,10 @@
 
     <string name="iss_launch_date">Wednesday 20 November 1998</string> <!-- Intended for code-use -->
 
-    <!-- API values sentences -->
+    <!-- API values and sentences -->
+
+    <string name="iss_people">humans currently living in space:</string>
+
+    <string name="api_error">Unable to retrieve data</string>
+    <string name="api_pending_sentence">pending data…</string>
 </resources>

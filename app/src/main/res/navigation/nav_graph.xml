@@ -6,17 +6,17 @@
 
     <activity
         android:id="@+id/dashboardActivity"
-        android:name="uqac.ca.isstracker.Activities.DashboardActivity"
+        android:name="uqac.ca.isstracker.activities.DashboardActivity"
         android:label="activity_dashboard"
         tools:layout="@layout/activity_dashboard" />
     <activity
         android:id="@+id/mapActivity"
-        android:name="uqac.ca.isstracker.Activities.MapActivity"
+        android:name="uqac.ca.isstracker.activities.MapActivity"
         android:label="activity_map"
         tools:layout="@layout/activity_map" />
     <activity
         android:id="@+id/humansActivity"
-        android:name="uqac.ca.isstracker.Activities.HomeActivity"
+        android:name="uqac.ca.isstracker.activities.HomeActivity"
         android:label="activity_humans"
         tools:layout="@layout/activity_home" />
 </navigation>

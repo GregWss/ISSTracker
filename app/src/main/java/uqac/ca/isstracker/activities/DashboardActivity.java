@@ -1,4 +1,4 @@
-package uqac.ca.isstracker.Activities;
+package uqac.ca.isstracker.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
