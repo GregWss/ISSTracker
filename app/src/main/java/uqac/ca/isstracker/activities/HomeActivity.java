@@ -26,10 +26,13 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import uqac.ca.isstracker.handlers.HomeSideHandler;
+import uqac.ca.isstracker.model.Data;
 import uqac.ca.isstracker.model.ISSAstros;
 import uqac.ca.isstracker.model.ISSNow;
 import uqac.ca.isstracker.model.N2yo;
 import uqac.ca.isstracker.R;
+import uqac.ca.isstracker.threads.HomeSideThread;
 
 import static com.android.volley.Request.Method.GET;
 
@@ -37,9 +40,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 {
     public static final String TAG = "ACTIVITY - HOME";
 
-    private ISSNow issNowData;
-    private ISSAstros issAstrosData;
-    private N2yo n2yoData;
+    public ISSNow issNowData;
+    public ISSAstros issAstrosData;
+    public N2yo n2yoData;
+    public Data data;
+    private int dataIndex;
+
+    private HomeSideThread sideThread;
+    private HomeSideHandler sideHandler;
 
     private boolean open_notify_iss_now_received;
     private boolean open_notify_astros_received;
@@ -50,10 +58,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private TextView textValue;
     private TextView textSentence;
 
+    private ObjectAnimator animationTextValueDown;
+    private ObjectAnimator animationTextValueUp;
+    private ValueAnimator fadeInTextValueAnim;
+    private ValueAnimator fadeOutTextValueAnim;
+    private ObjectAnimator animationTextSentenceDown;
+    private ObjectAnimator animationTextSentenceUp;
+    private ValueAnimator fadeInTextSentenceAnim;
+    private ValueAnimator fadeOutTextSentenceAnim;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Construct view
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,11 +88,41 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportActionBar().setTitle(R.string.title_activity_home);
 
-        textValue = findViewById(R.id.textValue);
-        textSentence = findViewById(R.id.textSentence);
-        textValue.setText("---");
-        textSentence.setText(R.string.api_pending_sentence);
+        //Init values
+        this.dataIndex = 0;
+        this.textValue = findViewById(R.id.textValue);
+        this.textSentence = findViewById(R.id.textSentence);
+        this.sideHandler = new HomeSideHandler(this, textSentence, textValue);
+        this.sideThread = new HomeSideThread(getApplicationContext(), sideHandler);
 
+        this.textValue.setText("---");
+        this.textSentence.setText(R.string.api_pending_sentence);
+
+        this.animationTextValueDown = ObjectAnimator.ofFloat(textValue, "translationY", -100f)
+                .setDuration(2000);
+
+        this.animationTextValueUp = ObjectAnimator.ofFloat(textValue, "translationY", 100f)
+                .setDuration(2000);
+
+        this.fadeInTextValueAnim = ObjectAnimator.ofFloat(textValue, "alpha", 0f, 1f)
+                .setDuration(2000);
+
+        this.fadeOutTextValueAnim = ObjectAnimator.ofFloat(textValue, "alpha", 1f, 0f)
+                .setDuration(2000);
+
+        this.animationTextSentenceDown = ObjectAnimator.ofFloat(textSentence, "translationY", +100f)
+                .setDuration(2000);
+
+        this.animationTextSentenceUp = ObjectAnimator.ofFloat(textSentence, "translationY", -100f)
+                .setDuration(2000);
+
+        this.fadeInTextSentenceAnim = ObjectAnimator.ofFloat(textSentence, "alpha", 0f, 1f)
+                .setDuration(2000);
+
+        this.fadeOutTextSentenceAnim = ObjectAnimator.ofFloat(textSentence, "alpha", 1f, 0f)
+                .setDuration(2000);
+
+        //Execute requests
         executeAPIRequests();
     }
 
@@ -142,9 +191,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     {
         // lazy initialize the request queue, the queue instance will be
         // created when it is accessed for the first time
-        if (mRequestQueue == null)
+        if (this.mRequestQueue == null)
         {
-            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+            this.mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
 
         return mRequestQueue;
@@ -176,9 +225,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void executeAPIRequests()
     {
-        open_notify_astros_received = false;
-        open_notify_iss_now_received = false;
-        n2yo_received = false;
+        this.open_notify_astros_received = false;
+        this.open_notify_iss_now_received = false;
+        this.n2yo_received = false;
 
         final String open_notify_url_iss_now ="http://api.open-notify.org/iss-now";
         final String open_notify_url_astros ="http://api.open-notify.org/astros";
@@ -193,7 +242,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     {
                         open_notify_iss_now_received = true;
                         issNowData = new ISSNow(response);
-                        setValues();
+                        startHomeThread();
                     }
                 }, new Response.ErrorListener()
                 {
@@ -214,7 +263,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     {
                         open_notify_astros_received = true;
                         issAstrosData = new ISSAstros(response);
-                        setValues();
+                        startHomeThread();
                     }
                 }, new Response.ErrorListener()
                 {
@@ -235,7 +284,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     {
                         n2yo_received = true;
                         n2yoData = new N2yo(response);
-                        setValues();
+                        startHomeThread();
                     }
                 }, new Response.ErrorListener()
                 {
@@ -249,35 +298,43 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         addToRequestQueue(req_n2yo);
     }
 
-    public void setValues()
+    public void startHomeThread()
     {
         //Set values only if all APIs have responded
-        if(open_notify_iss_now_received && open_notify_astros_received && n2yo_received)
+        if(this.open_notify_iss_now_received && this.open_notify_astros_received && this.n2yo_received)
         {
-            textValue.setAlpha(0f);
-            textSentence.setAlpha(0f);
+            data = new Data(getApplicationContext(), null, null, null);
+            if(!sideThread.isAlive()) sideThread.start();
+        }
+    }
 
-            Log.d("HOME", "Values ok");
-            textSentence.setText(R.string.iss_people);
-            textValue.setText("" + issAstrosData.getNumber());
+    public void setValuesAndAnimate()
+    {
+        if(this.open_notify_iss_now_received && this.open_notify_astros_received && this.n2yo_received)
+        {
+            this.textValue.setAlpha(0f);
+            this.textSentence.setAlpha(0f);
 
-            ObjectAnimator animationTextValueUp = ObjectAnimator.ofFloat(textValue, "translationY", -100f)
-                    .setDuration(2000);
 
-            ValueAnimator fadeInTextValueAnim = ObjectAnimator.ofFloat(textValue, "alpha", 0f, 1f)
-                    .setDuration(2000);
+            this.textSentence.setText(data.getData(dataIndex)[0]);
+            this.textValue.setText(data.getData(dataIndex)[1]);
+            dataIndex++;
 
-            ObjectAnimator animationTextSentenceDown = ObjectAnimator.ofFloat(textSentence, "translationY", +100f)
-                    .setDuration(2000);
+            AnimatorSet animatorSetIn = new AnimatorSet();
+            animatorSetIn.play(this.animationTextValueDown).with(this.animationTextSentenceDown);
+            animatorSetIn.play(this.animationTextValueDown).with(this.fadeInTextValueAnim);
+            animatorSetIn.play(this.animationTextValueDown).with(this.fadeInTextSentenceAnim);
+            animatorSetIn.start();
 
-            ValueAnimator fadeInTextSentenceAnim = ObjectAnimator.ofFloat(textSentence, "alpha", 0f, 1f)
-                    .setDuration(2000);
+            AnimatorSet animatorSetOut = new AnimatorSet();
+            animatorSetOut.setStartDelay(5000);
+            animatorSetOut.play(this.animationTextValueUp).with(this.animationTextSentenceUp);
+            animatorSetOut.play(this.animationTextValueUp).with(this.fadeOutTextValueAnim);
+            animatorSetOut.play(this.animationTextValueUp).with(this.fadeOutTextSentenceAnim);
+            animatorSetOut.start();
 
-            AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.play(animationTextValueUp).with(animationTextSentenceDown);
-            animatorSet.play(animationTextValueUp).with(fadeInTextValueAnim);
-            animatorSet.play(animationTextValueUp).with(fadeInTextSentenceAnim);
-            animatorSet.start();
+            if(dataIndex >= data.size())
+                dataIndex = 0;
         }
     }
 }
