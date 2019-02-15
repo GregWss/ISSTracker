@@ -315,10 +315,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             this.textValue.setAlpha(0f);
             this.textSentence.setAlpha(0f);
 
-
             this.textSentence.setText(data.getData(dataIndex)[0]);
             this.textValue.setText(data.getData(dataIndex)[1]);
             dataIndex++;
+            if(dataIndex >= data.size())
+                dataIndex = 0;
 
             AnimatorSet animatorSetIn = new AnimatorSet();
             animatorSetIn.play(this.animationTextValueDown).with(this.animationTextSentenceDown);
@@ -332,9 +333,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             animatorSetOut.play(this.animationTextValueUp).with(this.fadeOutTextValueAnim);
             animatorSetOut.play(this.animationTextValueUp).with(this.fadeOutTextSentenceAnim);
             animatorSetOut.start();
-
-            if(dataIndex >= data.size())
-                dataIndex = 0;
         }
     }
 }
