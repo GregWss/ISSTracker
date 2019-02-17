@@ -4,6 +4,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import org.json.*;
 
+/**
+ * This class holds gathered information about astronauts from open-notify API.
+ */
 public class ISSAstros
 {
     private ArrayList<Astro> astros;
@@ -31,16 +34,29 @@ public class ISSAstros
         }
     }
 
+    /**
+     * Returns a list of ISSAstro objects, representing the astronauts that currently living in
+     * space.
+     * @return a list of ISSAstro objects.
+     */
     public ArrayList<Astro> getAstros()
     {
         return astros;
     }
 
+    /**
+     * Returns the number of astronauts inside ISS.
+     * @return the number of astronauts inside ISS.
+     */
     public int getNumber()
     {
         return number;
     }
 
+    /**
+     * Returns the API status message.
+     * @return the API status message.
+     */
     public String getMessage()
     {
         return message;

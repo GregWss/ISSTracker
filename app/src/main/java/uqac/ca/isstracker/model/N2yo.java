@@ -4,6 +4,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import org.json.*;
 
+/**
+ * This class holds gathered information about ISS from N2yo website & API.
+ */
 public class N2yo
 {
     private String satname;
@@ -39,15 +42,31 @@ public class N2yo
         }
     }
 
-    public String getSatname() {
+    /**
+     * As long the ISS is a satellite, it returns his official satellite registered name.
+     * @return ISS satellite official name.
+     */
+    public String getSatname()
+    {
         return satname;
     }
 
-    public int getSatId() {
+    /**
+     * Returns the ISS NORAD id.
+     * @return NORAD id.
+     */
+    public int getSatId()
+    {
         return satId;
     }
 
-    public ArrayList<ISSPosition> getPositions() {
+    /**
+     * Returns future positions of the ISS as footprints (latitude, longitude). Also return the
+     * satellite's azimuth and elevation with respect to the observer location.
+     * @return future positions.
+     */
+    public ArrayList<ISSPosition> getPositions()
+    {
         return positions;
     }
 }

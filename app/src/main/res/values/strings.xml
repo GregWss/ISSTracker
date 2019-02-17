@@ -14,15 +14,16 @@
     <string name="value">7.66 km/s</string>
 
     <!-- Nav drawer -->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="nav_drawer_open">Open drawer</string>
+    <string name="nav_drawer_close">Close drawer</string>
     <string name="nav_header_title">iss tRAcKer</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <!--<string name="nav_menu_humans">hUMANs</string>
-    <string name="nav_menu_map">MAp</string>
-    <string name="nav_menu_dashboard">DAsHboaRd</string>-->
     <string name="nav_menu_humans">Home</string>
     <string name="nav_menu_map">Map</string>
     <string name="nav_menu_dashboard">Dashboard</string>
+
+    <!-- Other -->
+
+    <string name="api_error">Unable to retrieve data</string>
+    <string name="api_pending_sentence">pending data…</string>
 </resources>

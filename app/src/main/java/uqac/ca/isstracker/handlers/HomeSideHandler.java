@@ -3,8 +3,6 @@ package uqac.ca.isstracker.handlers;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -16,14 +14,10 @@ public class HomeSideHandler extends Handler
     private static final String TAG = "HOME HANDLER";
 
     private final WeakReference<AppCompatActivity> mActivity;
-    private final TextView textSentence;
-    private final TextView textValue;
 
-    public HomeSideHandler(AppCompatActivity activity, TextView textSentence, TextView textValue)
+    public HomeSideHandler(AppCompatActivity activity)
     {
         this.mActivity = new WeakReference<>(activity);
-        this.textSentence = textSentence;
-        this.textValue = textValue;
     }
 
     @Override
