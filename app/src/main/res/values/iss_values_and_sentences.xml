@@ -5,8 +5,10 @@
         <item><string name="iss_speed_sentence">iss speed:</string></item>
         <item><string name="iss_orbit_height_sentence">iss orbit height:</string></item>
         <item><string name="iss_orbits_per_day_sentence">iss orbits per day:</string></item>
-        <item><string name="iss_orbital_disintegration">iss orbital disintegration:</string></item>
+        <item><string name="iss_orbital_disintegration_sentence">iss orbital disintegration:</string></item>
         <item><string name="iss_launch_date_sentence">iss launch date:</string></item>
+        <item><string name="iss_perigee_sentence">iss perigee:</string></item>
+        <item><string name="iss_apogee_sentence">iss apogee:</string></item>
     </string-array>
 
     <string-array name="iss_static_values_metric">
@@ -14,18 +16,25 @@
         <item><string name="iss_orbit_height_value_metric">408 km</string></item>
         <item><string name="iss_orbits_per_day_value_metric">15.54</string></item>
         <item><string name="iss_orbital_disintegration_value_metric">2 km/month</string></item>
-        <item><string name="iss_launch_date_metric">Wed 20 Nov 1998</string></item>
+        <item><string name="iss_launch_date_value_metric">Nov 20, 1997</string></item>
+        <item><string name="iss_perigee_value_metric">410,4 km</string></item>
+        <item><string name="iss_apogee_value_metric">418,3 km</string></item>
     </string-array>
 
     <string-array name="iss_static_values_imperial">
         <item><string name="iss_speed_value_imperial">17.100 mph</string></item>
-        <item><string name="iss_orbit_height_value_imperial">253 miles</string></item>
+        <item><string name="iss_orbit_height_value_imperial">253 ml</string></item>
         <item><string name="iss_orbits_per_day_value_imperial">15.54</string></item>
-        <item><string name="iss_orbital_disintegration_value_imperial">1.24 km/month</string></item>
-        <item><string name="iss_launch_date_imperial">Wed 20 Nov 1998</string></item>
+        <item><string name="iss_orbital_disintegration_value_imperial">1.24 ml/month</string></item>
+        <item><string name="iss_launch_date_value_imperial">Nov 20, 1997</string></item>
+        <item><string name="iss_perigee_value_imperial">254.7 ml</string></item>
+        <item><string name="iss_apogee_value_imperial">259.7 ml</string></item>
     </string-array>
 
     <!-- API sentences -->
 
     <string name="iss_people_sentence">humans currently living in space:</string>
+
+    <string name="api_error">Unable to retrieve data</string>
+    <string name="api_pending_sentence">pending data…</string>
 </resources>
