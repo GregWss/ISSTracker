@@ -4,7 +4,6 @@ import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,7 +26,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -110,7 +108,6 @@ public class HomeActivity extends AppCompatActivity implements
 
         public void onProviderEnabled(String provider)
         {
-            Toast.makeText(HomeActivity.this, "PROVIDER : " + provider, Toast.LENGTH_SHORT).show();
             startLocationUpdates();
         }
 
