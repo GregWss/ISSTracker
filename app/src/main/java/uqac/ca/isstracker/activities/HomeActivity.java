@@ -391,7 +391,7 @@ public class HomeActivity extends AppCompatActivity implements
         if(perm1 && perm2)
         {
             //Check if location service is enabled on user's device
-            if (!this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) //That seems to don't work anymore
+            if (!this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
             {
                 promptEnableLocation();
             }
