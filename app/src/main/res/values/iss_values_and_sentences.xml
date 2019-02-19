@@ -34,7 +34,4 @@
     <!-- API sentences -->
 
     <string name="iss_people_sentence">humans currently living in space:</string>
-
-    <string name="api_error">Unable to retrieve data</string>
-    <string name="api_pending_sentence">pending data…</string>
 </resources>
