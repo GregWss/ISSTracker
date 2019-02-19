@@ -9,17 +9,17 @@
     tools:context=".activities.HomeActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/homeBackgroundView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
+        android:background="@color/colorPrimary"
         android:cropToPadding="false"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/unsplash_nasa_43568" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textSentence"

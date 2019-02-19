@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorSecondary</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -19,6 +20,10 @@
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
         <item name="android:textColorSecondary">@color/colorPrimaryText</item>
         <item name="actionMenuTextColor">@android:color/white</item>
+    </style>
+
+    <style name="PopupStyle" parent="AppTheme">
+        <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
 
     <style name="AppTheme.MajorFont" parent="@android:style/TextAppearance.Large">

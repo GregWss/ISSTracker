@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -34,8 +35,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import uqac.ca.isstracker.handlers.HomeSideHandler;
 import uqac.ca.isstracker.model.Data;
@@ -46,6 +50,7 @@ import uqac.ca.isstracker.R;
 import uqac.ca.isstracker.threads.HomeSideThread;
 
 import static com.android.volley.Request.Method.GET;
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener
@@ -57,6 +62,8 @@ public class HomeActivity extends AppCompatActivity implements
     public N2yo n2yoData;
     public Data data;
     private int dataIndex;
+    private int backgroundIndex;
+    private ArrayList<Integer> backgroundImages;
 
     private HomeSideThread sideThread;
     private HomeSideHandler sideHandler;
@@ -77,6 +84,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     private TextView textValue;
     private TextView textSentence;
+    private ImageView backgroundView;
 
     private ObjectAnimator animationTextValueDown;
     private ObjectAnimator animationTextValueUp;
@@ -137,14 +145,22 @@ public class HomeActivity extends AppCompatActivity implements
 
         //Init values
         this.dataIndex          = 0;
+        this.backgroundIndex    = 0;
+        this.backgroundImages   = new ArrayList<>();
         this.textValue          = findViewById(R.id.textValue);
         this.textSentence       = findViewById(R.id.textSentence);
+        this.backgroundView     = findViewById(R.id.homeBackgroundView);
         this.sideHandler        = new HomeSideHandler(this);
         this.sideThread         = new HomeSideThread(getApplicationContext(), sideHandler);
         this.locationManager    = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         this.textValue.setText("---");
         this.textSentence.setText(R.string.api_pending_sentence);
+
+        /*Glide.with(getApplicationContext())
+                .load(R.drawable.unsplash_nasa_43568)
+                .transition(withCrossFade())
+                .into(backgroundView);*/
 
         this.animationTextValueDown     = ObjectAnimator.ofFloat(textValue, "translationY", -100f)
                 .setDuration(2000);
@@ -169,6 +185,12 @@ public class HomeActivity extends AppCompatActivity implements
 
         this.fadeOutTextSentenceAnim    = ObjectAnimator.ofFloat(textSentence, "alpha", 1f, 0f)
                 .setDuration(2000);
+
+        this.backgroundImages.add(R.drawable.unsplash_nasa_43567);
+        this.backgroundImages.add(R.drawable.unsplash_nasa_43568);
+        this.backgroundImages.add(R.drawable.unsplash_nasa_63029);
+        this.backgroundImages.add(R.drawable.unsplash_niketh_vellanki_252581);
+        this.backgroundImages.add(R.drawable.unsplash_richard_gatley_533872);
     }
 
     @Override
@@ -368,12 +390,19 @@ public class HomeActivity extends AppCompatActivity implements
             dataIndex++;
             if(dataIndex >= data.size())
                 dataIndex = 0;
+            if(backgroundIndex >= backgroundImages.size())
+                backgroundIndex = 0;
 
             AnimatorSet animatorSetIn = new AnimatorSet();
             animatorSetIn.play(this.animationTextValueDown).with(this.animationTextSentenceDown);
             animatorSetIn.play(this.animationTextValueDown).with(this.fadeInTextValueAnim);
             animatorSetIn.play(this.animationTextValueDown).with(this.fadeInTextSentenceAnim);
             animatorSetIn.start();
+
+            Glide.with(getApplicationContext())
+                    .load(backgroundImages.get(backgroundIndex++))
+                    .transition(withCrossFade())
+                    .into(backgroundView);
 
             AnimatorSet animatorSetOut = new AnimatorSet();
             animatorSetOut.setStartDelay(5000);
