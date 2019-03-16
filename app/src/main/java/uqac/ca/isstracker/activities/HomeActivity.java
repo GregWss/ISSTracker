@@ -193,13 +193,13 @@ public class HomeActivity extends AppCompatActivity implements
     public void onStart()
     {
         super.onStart();
-        acquireData();
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
+        acquireData();
     }
 
     @Override
@@ -249,16 +249,16 @@ public class HomeActivity extends AppCompatActivity implements
         switch(item.getItemId())
         {
             case R.id.nav_humans:
-                    Intent humansIntent = new Intent(getApplicationContext(), HumansActivity.class);
-                    startActivity(humansIntent);
                 break;
 
             case R.id.nav_map:
-                    Intent mapIntent = new Intent(getApplicationContext(), MapActivity.class);
-                    startActivity(mapIntent);
+                Intent mapIntent = new Intent(getApplicationContext(), MapActivity.class);
+                startActivity(mapIntent);
                 break;
 
             case R.id.nav_dashboard:
+                Intent dashboardIntent = new Intent(getApplicationContext(), HumansActivity.class);
+                startActivity(dashboardIntent);
                 break;
         }
 
