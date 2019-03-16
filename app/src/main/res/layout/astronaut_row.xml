@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
@@ -17,13 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/img"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                app:civ_border_color="#222222"
+                app:civ_border_width="3dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
@@ -62,60 +66,83 @@
                 app:layout_constraintLeft_toRightOf="@+id/img"
                 app:layout_constraintTop_toBottomOf="@+id/name"/>
 
+
+            <View
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:background="#051f73"
+                android:paddingTop="10px"
+                android:paddingBottom="5px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img" />/
+
             <ImageView
                 android:id="@+id/astronautTwitter"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="24dp"
                 android:contentDescription="@string/astronautTwitterContentDescription"
                 android:src="@drawable/ic_action_twitter_grey"
-                app:layout_constraintLeft_toRightOf="@+id/img"
-                app:layout_constraintTop_toBottomOf="@+id/role"/>
+                app:layout_constraintStart_toStartOf="@+id/img"
+                app:layout_constraintTop_toTopOf="@+id/astronautWiki" />
 
             <ImageView
                 android:id="@+id/astronautWiki"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="24dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/astronautWikiContentDescription"
                 android:padding="4dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_wikipedia"
-                app:layout_constraintLeft_toRightOf="@+id/astronautTwitter"
-                app:layout_constraintTop_toBottomOf="@+id/role"/>
+                app:layout_constraintEnd_toEndOf="@+id/img"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <TextView
                 android:id="@+id/days_since_launch"
                 style="@android:style/TextAppearance.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="9dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginBottom="9dp"
                 android:textSize="12sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
                 android:id="@+id/bio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/days_since_launch"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img"/>
+                app:layout_constraintStart_toEndOf="@+id/img"
+                app:layout_constraintTop_toBottomOf="@+id/role"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/launchDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textSize="12sp"
+                android:text="@string/launch_date"
+                app:layout_constraintEnd_toStartOf="@+id/days_since_launch"
+                app:layout_constraintTop_toTopOf="@+id/days_since_launch" />
 
         </android.support.constraint.ConstraintLayout>
 

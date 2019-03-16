@@ -3,6 +3,7 @@ package uqac.ca.isstracker.handlers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.*;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ public class AstronautAdapter extends ArrayAdapter<Astronaut> {
 
     private Context mContext;
     private List<Astronaut> astronautsList = new ArrayList<>();
+    public Astronaut currentAstronaut;
 
     private ImageView mProfileImage;
     private ImageView mCountryFlag;
@@ -45,7 +47,7 @@ public class AstronautAdapter extends ArrayAdapter<Astronaut> {
         if(listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.astronaut_row, parent, false);
 
-        Astronaut currentAstronaut = astronautsList.get(currentPosition);
+          currentAstronaut = astronautsList.get(currentPosition);
 
           mProfileImage = (ImageView) listItem.findViewById(R.id.img);
           mCountryFlag = (ImageView) listItem.findViewById(R.id.countryFlag);
@@ -60,25 +62,36 @@ public class AstronautAdapter extends ArrayAdapter<Astronaut> {
         Picasso.get().load(currentAstronaut.getImage()).into(mProfileImage);
         Picasso.get().load(currentAstronaut.getCountryLink()).into(mCountryFlag);
 
-        mAstronautTwitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Astronaut currentAstronaut = astronautsList.get(currentPosition);
-                if (currentAstronaut.getTwitter().length() != 0) {
-                    Toast.makeText(mContext, currentAstronaut.getTwitter(), Toast.LENGTH_SHORT).show();
+        if (currentAstronaut.getTwitter().length() == 0) {
+            mAstronautTwitter.setVisibility(View.INVISIBLE);
+        }else{
+            mAstronautTwitter.setOnClickListener(new View.OnClickListener() {
+                String resultat = currentAstronaut.getTwitter();
+                @Override
+                public void onClick(View v) {
+                    String url = resultat;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    mContext.startActivity(i);
                 }
-            }
-        });
+            });
+        }
 
-        mAstronautWiki.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Astronaut currentAstronaut = astronautsList.get(currentPosition);
-                if (currentAstronaut.getTwitter().length() != 0) {
-                    Toast.makeText(mContext, currentAstronaut.getWiki(), Toast.LENGTH_SHORT).show();
+
+        if (currentAstronaut.getWiki().length() == 0) {
+            mAstronautTwitter.setVisibility(View.INVISIBLE);
+        }else {
+            mAstronautWiki.setOnClickListener(new View.OnClickListener() {
+                String resultat = currentAstronaut.getWiki();
+                @Override
+                public void onClick(View v) {
+                    String url = resultat;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    mContext.startActivity(i);
                 }
-            }
-        });
+            });
+        }
 
         mName.setText(currentAstronaut.getName());
         mRole.setText(currentAstronaut.getRole());
