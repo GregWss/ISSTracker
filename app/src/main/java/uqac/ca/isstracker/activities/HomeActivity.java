@@ -40,14 +40,14 @@ import com.bumptech.glide.Glide;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import uqac.ca.isstracker.handlers.HomeSideHandler;
 import uqac.ca.isstracker.model.Data;
 import uqac.ca.isstracker.model.ISSAstros;
 import uqac.ca.isstracker.model.ISSNow;
 import uqac.ca.isstracker.model.N2yo;
 import uqac.ca.isstracker.R;
-import uqac.ca.isstracker.threads.HomeSideThread;
 
 import static com.android.volley.Request.Method.GET;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -65,8 +65,7 @@ public class HomeActivity extends AppCompatActivity implements
     private int backgroundIndex;
     private ArrayList<Integer> backgroundImages;
 
-    private HomeSideThread sideThread;
-    private HomeSideHandler sideHandler;
+    private Timer timer;
 
     private LocationManager locationManager;
     private Location currLocation;
@@ -86,6 +85,8 @@ public class HomeActivity extends AppCompatActivity implements
     private TextView textSentence;
     private ImageView backgroundView;
 
+    private AnimatorSet animatorSetIn;
+    private AnimatorSet animatorSetOut;
     private ObjectAnimator animationTextValueDown;
     private ObjectAnimator animationTextValueUp;
     private ValueAnimator fadeInTextValueAnim;
@@ -150,17 +151,12 @@ public class HomeActivity extends AppCompatActivity implements
         this.textValue          = findViewById(R.id.textValue);
         this.textSentence       = findViewById(R.id.textSentence);
         this.backgroundView     = findViewById(R.id.homeBackgroundView);
-        this.sideHandler        = new HomeSideHandler(this);
-        this.sideThread         = new HomeSideThread(getApplicationContext(), sideHandler);
         this.locationManager    = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        this.animatorSetIn      = new AnimatorSet();
+        this.animatorSetOut     = new AnimatorSet();
 
-        this.textValue.setText("---");
-        this.textSentence.setText(R.string.api_pending_sentence);
-
-        /*Glide.with(getApplicationContext())
-                .load(R.drawable.unsplash_nasa_43568)
-                .transition(withCrossFade())
-                .into(backgroundView);*/
+        this.textValue.setText("");
+        this.textSentence.setText("");
 
         this.animationTextValueDown     = ObjectAnimator.ofFloat(textValue, "translationY", -100f)
                 .setDuration(2000);
@@ -197,13 +193,13 @@ public class HomeActivity extends AppCompatActivity implements
     public void onStart()
     {
         super.onStart();
+        acquireData();
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
-        beginDataAcquisition();
     }
 
     @Override
@@ -220,7 +216,7 @@ public class HomeActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.activity_home_action_bar_menu, menu);
         return true;
     }
 
@@ -235,6 +231,12 @@ public class HomeActivity extends AppCompatActivity implements
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
             return true;
+
+        if (id == R.id.action_refresh)
+        {
+            acquireData();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -312,7 +314,7 @@ public class HomeActivity extends AppCompatActivity implements
                     {
                         open_notify_iss_now_received = true;
                         issNowData = new ISSNow(response);
-                        startSideThread();
+                        startUIUpdates();
                     }
                 }, new Response.ErrorListener()
                 {
@@ -333,7 +335,7 @@ public class HomeActivity extends AppCompatActivity implements
                     {
                         open_notify_astros_received = true;
                         issAstrosData = new ISSAstros(response);
-                        startSideThread();
+                        startUIUpdates();
                     }
                 }, new Response.ErrorListener()
                 {
@@ -354,7 +356,7 @@ public class HomeActivity extends AppCompatActivity implements
                     {
                         n2yo_received = true;
                         n2yoData = new N2yo(response);
-                        startSideThread();
+                        startUIUpdates();
                     }
                 }, new Response.ErrorListener()
                 {
@@ -368,13 +370,28 @@ public class HomeActivity extends AppCompatActivity implements
         addToRequestQueue(req_n2yo);
     }
 
-    public void startSideThread()
+    public void startUIUpdates()
     {
         //Set values only if all APIs have responded
         if(this.open_notify_iss_now_received && this.open_notify_astros_received && this.n2yo_received)
         {
-            data = new Data(getApplicationContext(), null, issAstrosData, null);
-            if(!sideThread.isAlive()) sideThread.start();
+            this.data = new Data(getApplicationContext(), null, issAstrosData, null);
+
+            this.timer.scheduleAtFixedRate(new TimerTask()
+            {
+                @Override
+                public void run()
+                {
+                    runOnUiThread(new TimerTask()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            setValuesAndAnimate();
+                        }
+                    });
+                }
+            }, 0, 7000);
         }
     }
 
@@ -393,28 +410,60 @@ public class HomeActivity extends AppCompatActivity implements
             if(backgroundIndex >= backgroundImages.size())
                 backgroundIndex = 0;
 
-            AnimatorSet animatorSetIn = new AnimatorSet();
-            animatorSetIn.play(this.animationTextValueDown).with(this.animationTextSentenceDown);
-            animatorSetIn.play(this.animationTextValueDown).with(this.fadeInTextValueAnim);
-            animatorSetIn.play(this.animationTextValueDown).with(this.fadeInTextSentenceAnim);
-            animatorSetIn.start();
+            this.animatorSetIn.play(this.animationTextValueDown)
+                    .with(this.animationTextSentenceDown)
+                    .with(this.fadeInTextValueAnim)
+                    .with(this.fadeInTextSentenceAnim);
+            this.animatorSetIn.start();
 
             Glide.with(getApplicationContext())
                     .load(backgroundImages.get(backgroundIndex++))
                     .transition(withCrossFade())
                     .into(backgroundView);
 
-            AnimatorSet animatorSetOut = new AnimatorSet();
-            animatorSetOut.setStartDelay(5000);
-            animatorSetOut.play(this.animationTextValueUp).with(this.animationTextSentenceUp);
-            animatorSetOut.play(this.animationTextValueUp).with(this.fadeOutTextValueAnim);
-            animatorSetOut.play(this.animationTextValueUp).with(this.fadeOutTextSentenceAnim);
-            animatorSetOut.start();
+            this.animatorSetOut.setStartDelay(4900);
+            this.animatorSetOut.play(this.animationTextValueUp)
+                    .with(this.animationTextSentenceUp)
+                    .with(this.fadeOutTextValueAnim)
+                    .with(this.fadeOutTextSentenceAnim);
+            this.animatorSetOut.start();
         }
     }
 
-    private void beginDataAcquisition()
+    private void acquireData()
     {
+        if(this.timer != null)
+        {
+            this.timer.cancel();
+            this.timer.purge();
+        }
+
+        this.timer = new Timer();
+
+        this.textValue.setText("---");
+        this.textSentence.setText(R.string.api_pending_sentence);
+
+        if(this.animatorSetIn.isRunning() && this.animatorSetOut.isStarted())  /// MANDATORY TEST
+        {
+            this.animatorSetIn.end();
+            this.animatorSetOut.cancel();
+        }
+        else if(this.animatorSetOut.isRunning())
+        {
+            this.animatorSetOut.end();
+            this.textSentence.setTranslationY(-100f);
+            this.textSentence.setAlpha(1f);
+            this.textValue.setTranslationY(+100f);
+            this.textValue.setAlpha(1f);
+        }
+
+        Glide.with(getApplicationContext())
+                .clear(backgroundView);
+        Glide.with(getApplicationContext())
+                .load(R.color.colorPrimary)
+                .transition(withCrossFade())
+                .into(backgroundView);
+
         boolean perm1 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         boolean perm2 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         if(perm1 && perm2)
@@ -482,7 +531,7 @@ public class HomeActivity extends AppCompatActivity implements
                 {
                     //Execute requests
                     Log.e(TAG, "PERMISSIONS GRANTED");
-                    beginDataAcquisition();
+                    acquireData();
                 }
                 else
                 {
