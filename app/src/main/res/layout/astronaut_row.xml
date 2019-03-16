@@ -26,7 +26,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                app:civ_border_color="#222222"
+                app:civ_border_color="@color/colorPrimaryLight"
                 app:civ_border_width="3dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -34,6 +34,7 @@
 
             <TextView
                 android:id="@+id/name"
+                android:fontFamily="@font/neris_font_family"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -58,6 +59,7 @@
 
             <TextView
                 android:id="@+id/role"
+                android:fontFamily="@font/neris_font_family"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -75,12 +77,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="8dp"
-                android:background="#051f73"
+                android:background="@color/colorPrimaryLight"
                 android:paddingTop="10px"
                 android:paddingBottom="5px"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img" />/
+                app:layout_constraintTop_toBottomOf="@+id/img" />
 
             <ImageView
                 android:id="@+id/astronautTwitter"
@@ -109,6 +111,7 @@
             <TextView
                 android:id="@+id/days_since_launch"
                 style="@android:style/TextAppearance.Small"
+                android:fontFamily="@font/neris_font_family"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
@@ -120,6 +123,7 @@
 
             <TextView
                 android:id="@+id/bio"
+                android:fontFamily="@font/neris_font_family"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -136,6 +140,7 @@
 
             <TextView
                 android:id="@+id/launchDate"
+                android:fontFamily="@font/neris_font_family"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
