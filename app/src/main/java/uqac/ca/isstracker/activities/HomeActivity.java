@@ -247,6 +247,8 @@ public class HomeActivity extends AppCompatActivity implements
         switch(item.getItemId())
         {
             case R.id.nav_humans:
+                Intent intent = new Intent(getApplicationContext(), HumansActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.nav_map:

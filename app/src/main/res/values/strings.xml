@@ -26,4 +26,10 @@
 
     <string name="api_error">Unable to retrieve data</string>
     <string name="api_pending_sentence">pending data…</string>
+
+    <!-- AStronaut -->
+    <string name="countryFlagContentDescription">Country flag this astronaut is from</string>
+    <string name="astronautTwitterContentDescription">Icon to link to astronaut\'s twitter page</string>
+    <string name="astronautWikiContentDescription">Icon to link to astronaut\'s wiki page</string>
+
 </resources>
