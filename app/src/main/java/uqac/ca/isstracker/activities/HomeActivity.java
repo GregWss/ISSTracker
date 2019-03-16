@@ -247,11 +247,13 @@ public class HomeActivity extends AppCompatActivity implements
         switch(item.getItemId())
         {
             case R.id.nav_humans:
-                Intent intent = new Intent(getApplicationContext(), HumansActivity.class);
-                startActivity(intent);
+                    Intent humansIntent = new Intent(getApplicationContext(), HumansActivity.class);
+                    startActivity(humansIntent);
                 break;
 
             case R.id.nav_map:
+                    Intent mapIntent = new Intent(getApplicationContext(), MapActivity.class);
+                    startActivity(mapIntent);
                 break;
 
             case R.id.nav_dashboard:
