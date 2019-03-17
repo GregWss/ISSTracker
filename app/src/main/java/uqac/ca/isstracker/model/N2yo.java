@@ -43,8 +43,8 @@ public class N2yo
     }
 
     /**
-     * As long the ISS is a satellite, it returns his official satellite registered name.
-     * @return ISS satellite official name.
+     * As long the ISS is a satellite, it returns his official satellite registered viewName.
+     * @return ISS satellite official viewName.
      */
     public String getSatname()
     {

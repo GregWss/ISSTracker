@@ -1,6 +1,8 @@
 <resources>
     <!-- Activities -->
     <string name="app_name">ISSTracker</string>
+    <string name="activity_humans_labels">Humans</string>
+    <string name="activity_map_labels">Map</string>
     <string name="iss_pos_request_btn">Get position!</string>
     <string name="iss_request_text">Get your first position</string>
     <string name="title_activity_map">Map</string>
