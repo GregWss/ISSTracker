@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,9 +81,8 @@ class AstronautAdapter(private val appContext: Context, private val dataset: Arr
         else
         {
             holder.astronautTwitter.setOnClickListener {
-                val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(astro.twitter)
-                appContext.startActivity(i)
+                Log.d("ACTION", astro.twitter)
+                appContext.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(astro.twitter)))
             }
         }
 
@@ -93,9 +93,8 @@ class AstronautAdapter(private val appContext: Context, private val dataset: Arr
         else
         {
             holder.astronautWiki.setOnClickListener {
-                val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(astro.wiki)
-                appContext.startActivity(i)
+                Log.d("ACTION", astro.wiki)
+                appContext.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(astro.wiki)))
             }
         }
     }

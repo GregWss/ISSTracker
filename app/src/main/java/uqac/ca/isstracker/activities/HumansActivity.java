@@ -1,5 +1,6 @@
 package uqac.ca.isstracker.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,8 @@ public class HumansActivity extends AppCompatActivity
 
         dataset = new ArrayList<>();
 
+        final Context app = this;
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>()
         {
@@ -70,7 +73,7 @@ public class HumansActivity extends AppCompatActivity
                     recyclerView.setLayoutManager(layoutManager);
 
                     // specify an adapter (see also next example)
-                    adapter = new AstronautAdapter(getApplicationContext(), dataset);
+                    adapter = new AstronautAdapter(app, dataset);
                     recyclerView.setAdapter(adapter);
                 }
                 catch (Exception e)
