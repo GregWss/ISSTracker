@@ -5,25 +5,26 @@ import android.support.annotation.NonNull;
 /**
  * Class of type Astronaut. Every single astronaut gets one.
  */
-public class Astronaut implements Comparable<Astronaut> {
-
+public class Astronaut implements Comparable<Astronaut>
+{
     // Data needed to represent a single astronaut
     private String name, image, countryLink, launchDate, role, location, bio, wiki, twitter;
 
     /**
      * Instantiates a new Astronaut.
      *
-     * @param name        The name of the astronaut
+     * @param name        The viewName of the astronaut
      * @param image       The url to a profile image of the astronaut
      * @param countryLink The url to a country flag the astronaut was born in
      * @param launchDate  The date where the astronaut was launched
-     * @param role        The role the astronaut has on the aircraft
+     * @param role        The viewRole the astronaut has on the aircraft
      * @param location    The location astronaut is located at. (Often times it's ISS)
-     * @param bio         The bio associated with the astronaut
+     * @param bio         The viewBio associated with the astronaut
      * @param wiki        The wiki url of the astronaut
      * @param twitter     The twitter url of the astronaut
      */
-    public Astronaut(String name, String image, String countryLink, String launchDate, String role, String location, String bio, String wiki, String twitter) {
+    public Astronaut(String name, String image, String countryLink, String launchDate, String role, String location, String bio, String wiki, String twitter)
+    {
         this.name = name;
         this.image = image;
         this.countryLink = countryLink;
@@ -36,9 +37,9 @@ public class Astronaut implements Comparable<Astronaut> {
     }
 
     /**
-     * Gets name.
+     * Gets viewName.
      *
-     * @return the name
+     * @return the viewName
      */
     public String getName() {
         return name;
@@ -72,9 +73,9 @@ public class Astronaut implements Comparable<Astronaut> {
     }
 
     /**
-     * Gets role.
+     * Gets viewRole.
      *
-     * @return the role
+     * @return the viewRole
      */
     public String getRole() {
         return role;
@@ -90,9 +91,9 @@ public class Astronaut implements Comparable<Astronaut> {
     }
 
     /**
-     * Gets bio.
+     * Gets viewBio.
      *
-     * @return the bio
+     * @return the viewBio
      */
     public String getBio() {
         return bio;

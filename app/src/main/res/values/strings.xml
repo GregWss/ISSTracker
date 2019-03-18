@@ -1,12 +1,18 @@
 <resources>
     <!-- Activities -->
     <string name="app_name">ISSTracker</string>
+    <string name="activity_humans_labels">Humans</string>
+    <string name="activity_map_labels">Map</string>
     <string name="iss_pos_request_btn">Get position!</string>
     <string name="iss_request_text">Get your first position</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_home">Home</string>
     <string name="title_activity_dashboard">Dashboard</string>
+
+    <!-- Home activity action bar item titles -->
+
     <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
 
     <!-- Home activity -->
 
