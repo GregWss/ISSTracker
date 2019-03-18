@@ -22,7 +22,7 @@ public class ISSAstros
             for (int i = 0; i < astrosArray.length(); i++)
                 astros.add(
                         new Astro(
-                                astrosArray.getJSONObject(i).getString("viewName"),
+                                astrosArray.getJSONObject(i).getString("name"),
                                 astrosArray.getJSONObject(i).getString("craft"))
                 );
             number = obj.getInt("number");

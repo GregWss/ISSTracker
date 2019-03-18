@@ -193,13 +193,19 @@ public class HomeActivity extends AppCompatActivity implements
     public void onStart()
     {
         super.onStart();
+        acquireData();
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
-        acquireData();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
     }
 
     @Override

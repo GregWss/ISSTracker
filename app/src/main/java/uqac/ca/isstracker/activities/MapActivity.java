@@ -3,8 +3,8 @@ package uqac.ca.isstracker.activities;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,7 +25,7 @@ import java.util.TimerTask;
 import uqac.ca.isstracker.R;
 import uqac.ca.isstracker.model.ISSNow;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 {
     public static final String TAG = "ACTIVITY - MAP";
 
@@ -50,6 +50,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

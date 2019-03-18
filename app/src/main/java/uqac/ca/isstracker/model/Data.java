@@ -1,6 +1,7 @@
 package uqac.ca.isstracker.model;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.android.gms.common.util.Strings;
 

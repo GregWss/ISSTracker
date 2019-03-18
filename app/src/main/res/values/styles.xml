@@ -33,7 +33,7 @@
     </style>
 
     <style name="AppTheme.NerisFont" parent="@android:style/TextAppearance.Large">
-        <item name="android:fontFamily">@font/neris_light</item>
+        <item name="android:fontFamily">@font/neris_thin</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
