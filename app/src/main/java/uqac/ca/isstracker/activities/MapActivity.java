@@ -9,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -62,6 +63,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+    @Override
+    protected void onStop(){
+        super.onStop();
+
+        timer.cancel();
+        timer.purge();
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -86,55 +95,62 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void run() {
                 mTimerHandler.post(new Runnable() {
                     public void run() {
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, open_notify_url_iss_now,
-                                null, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    // Getting data
-                                    issData = new ISSNow(response);
-
-                                    // Getting ISSPosition from the JSON Object
-                                    ISSLng = issData.getIssLongitude();
-                                    ISSLat = issData.getIssLatitude();
-
-                                    // Print the ISS latitude directly from the JSON Object received
-                                    // (Only for testing purpose)
-                                    // Toast.makeText(getApplicationContext(), "" + issData.getIssLatitude(), Toast.LENGTH_LONG).show();
-
-                                    // Store the ISS position in a variable
-                                    LatLng ISS = new LatLng(ISSLat, ISSLng);
-
-                                    // If no marker exists, create one
-                                    // Else move the marker to the new position
-                                    if (issMarker == null) {
-                                        issMarker = mMap.addMarker(new MarkerOptions().position(ISS).title("Marker of the ISS position"));
-                                    } else {
-                                        issMarker.setPosition(ISS);
-                                    }
-
-                                    // Center the view on the last position received
-                                    mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError e) {
-                                //TODO
-                                // What to do when there is no response ?
-                            }
-                        });
-
-                        // Access to the RequestQueue
-                        addToRequestQueue(jsonObjectRequest);
+                        addMapInfos();
                     }
                 });
             }
         };
 
         timer.schedule(refreshData,1,5000);
+    }
+
+    private void addMapInfos() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, open_notify_url_iss_now,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    // Getting data
+                    issData = new ISSNow(response);
+
+                    // Getting ISSPosition from the JSON Object
+                    ISSLng = issData.getIssLongitude();
+                    ISSLat = issData.getIssLatitude();
+
+                    // Print the ISS latitude directly from the JSON Object received
+                    // (Only for testing purpose)
+                    // Toast.makeText(getApplicationContext(), "" + issData.getIssLatitude(), Toast.LENGTH_LONG).show();
+
+                    // Store the ISS position in a variable
+                    LatLng ISS = new LatLng(ISSLat, ISSLng);
+
+                    // If no marker exists, create one
+                    // Else move the marker to the new position
+                    if (issMarker == null) {
+                        issMarker = mMap.addMarker(new MarkerOptions()
+                                                        .position(ISS)
+                                                        .title("Marker of the ISS position")
+                                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
+                    } else {
+                        issMarker.setPosition(ISS);
+                    }
+
+                    // Center the view on the last position received
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                //TODO
+                // What to do when there is no response ?
+            }
+        });
+
+        // Access to the RequestQueue
+        addToRequestQueue(jsonObjectRequest);
     }
 
     public <T> void addToRequestQueue(Request<T> req)
