@@ -25,9 +25,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import uqac.ca.isstracker.R;
+import uqac.ca.isstracker.adapters.InfoWindowMapAdapter;
 import uqac.ca.isstracker.model.ISSNow;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 {
     // Activity TAG, in order to find what activity said what in Debug mode
     public static final String TAG = "ACTIVITY - MAP";
@@ -85,7 +86,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     {
         mMap = googleMap;
 
+        mMap.setOnMarkerClickListener(this);
+
         requestAndDataTreatment();
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        if (marker.equals(issMarker))
+        {
+            // If the marker is clicked, show the info window
+            issMarker.showInfoWindow();
+        }
+
+        return true;
     }
 
     public void requestAndDataTreatment(){
@@ -118,7 +132,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     ISSLat = issData.getIssLatitude();
 
                     // Print the ISS latitude directly from the JSON Object received
-                    // (Only for testing purpose)
+                    // (Only for testing purpose) DO NOT DELETE
                     // Toast.makeText(getApplicationContext(), "" + issData.getIssLatitude(), Toast.LENGTH_LONG).show();
 
                     // Store the ISS position in a variable
@@ -129,11 +143,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     if (issMarker == null) {
                         issMarker = mMap.addMarker(new MarkerOptions()
                                                         .position(ISS)
-                                                        .title("Marker of the ISS position")
+                                                        .title("ISS position")
                                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
                     } else {
                         issMarker.setPosition(ISS);
                     }
+
+                    InfoWindowMapAdapter customInfoWindow = new InfoWindowMapAdapter(MapActivity.this);
+                    mMap.setInfoWindowAdapter(customInfoWindow);
+
+                    String infos = "Lat : " + issData.getIssLatitude()
+                            + " Lng : " + issData.getIssLongitude();
+
+                    issMarker.setSnippet(infos);
 
                     // Center the view on the last position received
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
