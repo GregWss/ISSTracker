@@ -37,12 +37,12 @@ class AstronautAdapter(private val appContext: Context, private val dataset: Arr
             this.name = v.findViewById(R.id.name)
             this.role = v.findViewById(R.id.role)
             this.bio = v.findViewById(R.id.bio)
-            this.launchDate = v.findViewById(R.id.days_since_launch)
+            this.launchDate = v.findViewById(R.id.launchDate)
 
             this.profileImage = v.findViewById(R.id.img)
             this.countryFlag = v.findViewById(R.id.countryFlag)
-            this.astronautTwitter = v.findViewById(R.id.astronautTwitter)
-            this.astronautWiki = v.findViewById(R.id.astronautWiki)
+            this.astronautTwitter = v.findViewById(R.id.twitter)
+            this.astronautWiki = v.findViewById(R.id.wiki)
         }
     }
 
@@ -51,7 +51,7 @@ class AstronautAdapter(private val appContext: Context, private val dataset: Arr
     {
         // create a new view
         val v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.astronaut_row, parent, false)
+                .inflate(R.layout.astronaut_row_material, parent, false)
 
         return cardViewHolder(v)
     }
@@ -65,9 +65,9 @@ class AstronautAdapter(private val appContext: Context, private val dataset: Arr
         // - replace the contents of the view with that element
         //Texts
         holder.name.text = astro.name
-        holder.role.text = astro.role
+        holder.role.text = "Role: " + astro.role
+        holder.launchDate.text = "Launch date: " + astro.launchDate
         holder.bio.text = astro.bio
-        holder.launchDate.text = astro.launchDate
 
         //Images
         Picasso.get().load(astro.image).into(holder.profileImage)
