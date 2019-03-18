@@ -10,6 +10,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,6 +28,7 @@ import uqac.ca.isstracker.model.ISSNow;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback
 {
+    // Activity TAG, in order to find what activity said what in Debug mode
     public static final String TAG = "ACTIVITY - MAP";
 
     private GoogleMap mMap;
@@ -41,7 +43,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
     private TimerTask refreshData;
     private Handler mTimerHandler = new Handler();
 
-    // Request
+    // Initialising markers to be able to remove them every refresh
+    public Marker issMarker = null;
+
+    // Request parameters
     private RequestQueue mRequestQueue;
     private static final String open_notify_url_iss_now = "http://api.open-notify.org/iss-now";
 
@@ -88,15 +93,26 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
                                     // Getting data
                                     issData = new ISSNow(response);
 
-                                    // Getting ISSPosition
+                                    // Getting ISSPosition from the JSON Object
                                     ISSLng = issData.getIssLongitude();
                                     ISSLat = issData.getIssLatitude();
 
-                                    Toast.makeText(getApplicationContext(), "" + issData.getIssLatitude(), Toast.LENGTH_LONG).show();
+                                    // Print the ISS latitude directly from the JSON Object received
+                                    // (Only for testing purpose)
+                                    // Toast.makeText(getApplicationContext(), "" + issData.getIssLatitude(), Toast.LENGTH_LONG).show();
 
-                                    // Add a marker on the ISS and move the camera
+                                    // Store the ISS position in a variable
                                     LatLng ISS = new LatLng(ISSLat, ISSLng);
-                                    mMap.addMarker(new MarkerOptions().position(ISS).title("Marker of the ISS"));
+
+                                    // If no marker exists, create one
+                                    // Else move the marker to the new position
+                                    if (issMarker == null) {
+                                        issMarker = mMap.addMarker(new MarkerOptions().position(ISS).title("Marker of the ISS position"));
+                                    } else {
+                                        issMarker.setPosition(ISS);
+                                    }
+
+                                    // Center the view on the last position received
                                     mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -106,10 +122,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
                             @Override
                             public void onErrorResponse(VolleyError e) {
                                 //TODO
+                                // What to do when there is no response ?
                             }
                         });
 
-                        // Access the RequestQueue through your singleton class.
+                        // Access to the RequestQueue
                         addToRequestQueue(jsonObjectRequest);
                     }
                 });
