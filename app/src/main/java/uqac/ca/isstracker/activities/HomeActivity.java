@@ -25,6 +25,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -90,6 +92,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     private RequestQueue mRequestQueue;
 
+    private ImageButton btnAbout;
     private TextView textValue;
     private TextView textSentence;
     private ImageView backgroundView;
@@ -134,6 +137,7 @@ public class HomeActivity extends AppCompatActivity implements
         this.dataIndex              = 0;
         this.backgroundIndex        = 0;
         this.backgroundImages       = new ArrayList<>();
+        this.btnAbout               = findViewById(R.id.aboutButton);
         this.textValue              = findViewById(R.id.textValue);
         this.textSentence           = findViewById(R.id.textSentence);
         this.backgroundView         = findViewById(R.id.homeBackgroundView);
@@ -141,8 +145,32 @@ public class HomeActivity extends AppCompatActivity implements
         this.animatorSetIn          = new AnimatorSet();
         this.animatorSetOut         = new AnimatorSet();
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setPositiveButton("Ok!", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                //Do nothing
+            }
+        });
+        builder.setTitle(R.string.btn_about_title);
+        builder.setMessage(R.string.btn_about_content);
+
+        final AlertDialog dialog = builder.create();
+
+        this.btnAbout.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.show();
+            }
+        });
         this.textValue.setText("");
         this.textSentence.setText("");
+
+
 
         this.animationTextValueDown     = ObjectAnimator.ofFloat(textValue, "translationY", -100f)
                 .setDuration(2000);
