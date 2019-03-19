@@ -26,10 +26,15 @@ public class Data
                 R.array.iss_static_sentences)));
         this.values.addAll(Arrays.asList(context.getResources().getStringArray(
                 R.array.iss_static_values_metric)));
+
+
         //API values
         //Astronauts
         this.sentences.add(context.getResources().getString(R.string.iss_people_sentence));
         this.values.add(String.valueOf(issAstrosData.getNumber()));
+        //N2yo
+        this.sentences.add(context.getResources().getString(R.string.iss_altitude));
+        this.values.add(String.valueOf(n2yoData.getPositions().get(0).getSataltitude()) + " km");
     }
 
     /**

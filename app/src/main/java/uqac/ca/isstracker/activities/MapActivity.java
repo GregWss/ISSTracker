@@ -157,6 +157,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     issMarker.setSnippet(infos);
 
+                    // Refreshing the window
+                    if (issMarker.isInfoWindowShown()){
+                        issMarker.hideInfoWindow();
+                        issMarker.showInfoWindow();
+                    }
+
                     // Center the view on the last position received
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(ISS));
                 } catch (Exception e) {

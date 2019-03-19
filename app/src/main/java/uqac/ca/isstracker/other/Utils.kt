@@ -8,5 +8,15 @@ abstract class Utils
         {
             return "L'orage coule sur ton visage."
         }
+
+        fun milesToKilometers(value: Float): Double
+        {
+            return value / 0.62137
+        }
+
+        fun kilometersToMiles(value: Float): Double
+        {
+            return value * 0.62137
+        }
     }
 }

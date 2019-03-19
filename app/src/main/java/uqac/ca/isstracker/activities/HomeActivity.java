@@ -67,13 +67,18 @@ public class HomeActivity extends AppCompatActivity implements
 
     private Timer timer;
 
+    private boolean initialized;
+
     private LocationManager locationManager;
     private Location currLocation;
     private boolean gps_state;
 
     private static final String open_notify_url_iss_now = "http://api.open-notify.org/iss-now";
     private static final String open_notify_url_astros = "http://api.open-notify.org/astros";
-    private static final String n2yo_url = "https://www.n2yo.com/rest/v1/satellite/positions/25544/48.418844/71.056855/77/1/&apiKey=XSLP3D-VBZHHR-4MHVUR-3YE5";
+    //https://www.n2yo.com/rest/v1/satellite/positions/25544/48.418844/71.056855/77/1/&apiKey=XSLP3D-VBZHHR-4MHVUR-3YE5
+    private static final String n2yo_url = "https://www.n2yo.com/rest/v1/satellite/positions/25544/";
+    private String n2yo_seconds = "1";
+    private static final String n2yo_apikey = "XSLP3D-VBZHHR-4MHVUR-3YE5";
 
     private boolean open_notify_iss_now_received;
     private boolean open_notify_astros_received;
@@ -106,6 +111,7 @@ public class HomeActivity extends AppCompatActivity implements
             //Set gps state
             setGPSState(location);
             currLocation = location;
+            init();
             Log.d(TAG, location.toString());
         }
 
@@ -145,6 +151,7 @@ public class HomeActivity extends AppCompatActivity implements
         getSupportActionBar().setTitle(R.string.title_activity_home);
 
         //Init values
+        this.initialized        = false;
         this.dataIndex          = 0;
         this.backgroundIndex    = 0;
         this.backgroundImages   = new ArrayList<>();
@@ -193,7 +200,8 @@ public class HomeActivity extends AppCompatActivity implements
     public void onStart()
     {
         super.onStart();
-        acquireData();
+
+        init();
     }
 
     @Override
@@ -240,7 +248,8 @@ public class HomeActivity extends AppCompatActivity implements
 
         if (id == R.id.action_refresh)
         {
-            acquireData();
+            this.initialized = false;
+            init();
             return true;
         }
 
@@ -254,9 +263,6 @@ public class HomeActivity extends AppCompatActivity implements
         // Handle navigation view item clicks here.
         switch(item.getItemId())
         {
-            case R.id.nav_humans:
-                break;
-
             case R.id.nav_map:
                 Intent mapIntent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(mapIntent);
@@ -273,10 +279,86 @@ public class HomeActivity extends AppCompatActivity implements
         return true;
     }
 
+    /**
+     * Initiates views, checks permissions and execute data gathering
+     */
+    private void init()
+    {
+        if(initialized) //Used to init only once
+            return;
+
+        if(this.timer != null)
+        {
+            this.timer.cancel();
+            this.timer.purge();
+        }
+
+        this.timer = new Timer();
+
+        //Init views
+
+        if(this.animatorSetIn.isRunning() && this.animatorSetOut.isStarted())  /// MANDATORY TEST
+        {
+            this.animatorSetIn.end();
+            this.animatorSetOut.cancel();
+        }
+        else if(this.animatorSetOut.isRunning())
+        {
+            this.animatorSetOut.end();
+            this.textSentence.setTranslationY(-100f);
+            this.textSentence.setAlpha(1f);
+            this.textValue.setTranslationY(+100f);
+            this.textValue.setAlpha(1f);
+        }
+
+        Glide.with(getApplicationContext())
+                .clear(backgroundView);
+        Glide.with(getApplicationContext())
+                .load(R.color.colorPrimary)
+                .transition(withCrossFade())
+                .into(backgroundView);
+
+        //Check permissions
+
+        boolean perm1 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean perm2 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if(perm1 && perm2)
+        {
+            //Check if location service is enabled on user's device
+            if (!this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            {
+                promptEnableLocation();
+            }
+            else
+            {
+                if(gps_state) //Location received
+                {
+                    textValue.setText("---");
+                    textSentence.setText(R.string.api_pending_sentence);
+                    executeAPIRequests();
+                    initialized = true;
+                }
+                else
+                {
+                    this.textValue.setText("---");
+                    this.textSentence.setText(R.string.location_pending_sentence);
+                    startLocationUpdates();
+                }
+            }
+        }
+        else
+        {
+            promptPermissions();
+        }
+    }
+
+    /**
+     * Lazy initialize the request queue, the queue instance will be created when it is accessed
+     * for the first time
+     * @return Request Queue
+     */
     public RequestQueue getRequestQueue()
     {
-        // lazy initialize the request queue, the queue instance will be
-        // created when it is accessed for the first time
         if (this.mRequestQueue == null)
         {
             this.mRequestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -309,11 +391,21 @@ public class HomeActivity extends AppCompatActivity implements
             mRequestQueue.cancelAll(tag);
     }
 
+    /**
+     * Executes API requests and begins UI updates when all APIs have responded
+     */
     public void executeAPIRequests()
     {
         this.open_notify_astros_received = false;
         this.open_notify_iss_now_received = false;
         this.n2yo_received = false;
+
+        final String builder_n2yo_url = n2yo_url +
+                currLocation.getLatitude() + "/" +
+                currLocation.getLongitude() + "/" +
+                currLocation.getAltitude() + "/" +
+                n2yo_seconds + "/" +
+                "&apiKey=" + n2yo_apikey;
 
         // pass "null" for GET requests
         JsonObjectRequest req_iss_now = new JsonObjectRequest(GET, open_notify_url_iss_now, null,
@@ -358,7 +450,7 @@ public class HomeActivity extends AppCompatActivity implements
         );
         addToRequestQueue(req_iss_astros);
 
-        JsonObjectRequest req_n2yo = new JsonObjectRequest(GET, n2yo_url, null,
+        JsonObjectRequest req_n2yo = new JsonObjectRequest(GET, builder_n2yo_url, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -380,12 +472,15 @@ public class HomeActivity extends AppCompatActivity implements
         addToRequestQueue(req_n2yo);
     }
 
-    public void startUIUpdates()
+    /**
+     * Begins UI updates if every API have responded
+     */
+    private void startUIUpdates()
     {
         //Set values only if all APIs have responded
         if(this.open_notify_iss_now_received && this.open_notify_astros_received && this.n2yo_received)
         {
-            this.data = new Data(getApplicationContext(), null, issAstrosData, null);
+            this.data = new Data(getApplicationContext(), null, issAstrosData, n2yoData);
 
             this.timer.scheduleAtFixedRate(new TimerTask()
             {
@@ -405,7 +500,10 @@ public class HomeActivity extends AppCompatActivity implements
         }
     }
 
-    public void setValuesAndAnimate()
+    /**
+     * Executes the UI animation process (showing values and animations)
+     */
+    private void setValuesAndAnimate()
     {
         if(this.open_notify_iss_now_received && this.open_notify_astros_received && this.n2yo_received)
         {
@@ -440,60 +538,7 @@ public class HomeActivity extends AppCompatActivity implements
         }
     }
 
-    private void acquireData()
-    {
-        if(this.timer != null)
-        {
-            this.timer.cancel();
-            this.timer.purge();
-        }
 
-        this.timer = new Timer();
-
-        this.textValue.setText("---");
-        this.textSentence.setText(R.string.api_pending_sentence);
-
-        if(this.animatorSetIn.isRunning() && this.animatorSetOut.isStarted())  /// MANDATORY TEST
-        {
-            this.animatorSetIn.end();
-            this.animatorSetOut.cancel();
-        }
-        else if(this.animatorSetOut.isRunning())
-        {
-            this.animatorSetOut.end();
-            this.textSentence.setTranslationY(-100f);
-            this.textSentence.setAlpha(1f);
-            this.textValue.setTranslationY(+100f);
-            this.textValue.setAlpha(1f);
-        }
-
-        Glide.with(getApplicationContext())
-                .clear(backgroundView);
-        Glide.with(getApplicationContext())
-                .load(R.color.colorPrimary)
-                .transition(withCrossFade())
-                .into(backgroundView);
-
-        boolean perm1 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-        boolean perm2 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-        if(perm1 && perm2)
-        {
-            //Check if location service is enabled on user's device
-            if (!this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            {
-                promptEnableLocation();
-            }
-            else
-            {
-                startLocationUpdates();
-                executeAPIRequests();
-            }
-        }
-        else
-        {
-            promptPermissions();
-        }
-    }
 
     /**
      * Begins GPS location reading
@@ -541,7 +586,7 @@ public class HomeActivity extends AppCompatActivity implements
                 {
                     //Execute requests
                     Log.e(TAG, "PERMISSIONS GRANTED");
-                    acquireData();
+                    init();
                 }
                 else
                 {

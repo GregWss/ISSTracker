@@ -51,7 +51,7 @@ class AstronautAdapter(private val appContext: Context, private val dataset: Arr
     {
         // create a new view
         val v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.astronaut_row_material, parent, false)
+                .inflate(R.layout.astro_card, parent, false)
 
         return cardViewHolder(v)
     }
