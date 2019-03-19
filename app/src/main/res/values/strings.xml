@@ -30,9 +30,10 @@
 
     <!-- Other -->
 
-    <string name="api_error">Unable to retrieve data</string>
+    <string name="api_error">unable to retrieve data</string>
     <string name="api_pending_sentence">pending data…</string>
     <string name="location_pending_sentence">retrieving your position…</string>
+    <string name="location_error">unable to retrieve your position</string>
 
     <!-- Astronaut -->
     <string name="countryFlagContentDescription">Country flag this astronaut is from</string>

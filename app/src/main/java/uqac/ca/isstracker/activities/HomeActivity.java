@@ -9,9 +9,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +36,10 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONObject;
 
@@ -70,8 +74,8 @@ public class HomeActivity extends AppCompatActivity implements
     private boolean initialized;
 
     private LocationManager locationManager;
-    private Location currLocation;
-    private boolean gps_state;
+
+    private FusedLocationProviderClient fusedLocationClient;
 
     private static final String open_notify_url_iss_now = "http://api.open-notify.org/iss-now";
     private static final String open_notify_url_astros = "http://api.open-notify.org/astros";
@@ -103,32 +107,6 @@ public class HomeActivity extends AppCompatActivity implements
 
     final private int PERMISSIONS_REQUEST = 1;
 
-    //Location listener, searching for a GPS signal and enabling acquisition when it's found.
-    private final LocationListener locationListener = new LocationListener()
-    {
-        public void onLocationChanged(Location location)
-        {
-            //Set gps state
-            setGPSState(location);
-            currLocation = location;
-            init();
-            Log.d(TAG, location.toString());
-        }
-
-        public void onProviderDisabled(String Provider)
-        {
-            setGPSState(false);
-            currLocation = null;
-        }
-
-        public void onProviderEnabled(String provider)
-        {
-            startLocationUpdates();
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) { }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -151,16 +129,17 @@ public class HomeActivity extends AppCompatActivity implements
         getSupportActionBar().setTitle(R.string.title_activity_home);
 
         //Init values
-        this.initialized        = false;
-        this.dataIndex          = 0;
-        this.backgroundIndex    = 0;
-        this.backgroundImages   = new ArrayList<>();
-        this.textValue          = findViewById(R.id.textValue);
-        this.textSentence       = findViewById(R.id.textSentence);
-        this.backgroundView     = findViewById(R.id.homeBackgroundView);
-        this.locationManager    = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        this.animatorSetIn      = new AnimatorSet();
-        this.animatorSetOut     = new AnimatorSet();
+        this.initialized            = false;
+        this.fusedLocationClient    = LocationServices.getFusedLocationProviderClient(this);
+        this.dataIndex              = 0;
+        this.backgroundIndex        = 0;
+        this.backgroundImages       = new ArrayList<>();
+        this.textValue              = findViewById(R.id.textValue);
+        this.textSentence           = findViewById(R.id.textSentence);
+        this.backgroundView         = findViewById(R.id.homeBackgroundView);
+        this.locationManager        = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        this.animatorSetIn          = new AnimatorSet();
+        this.animatorSetOut         = new AnimatorSet();
 
         this.textValue.setText("");
         this.textSentence.setText("");
@@ -194,6 +173,8 @@ public class HomeActivity extends AppCompatActivity implements
         this.backgroundImages.add(R.drawable.unsplash_nasa_63029);
         this.backgroundImages.add(R.drawable.unsplash_niketh_vellanki_252581);
         this.backgroundImages.add(R.drawable.unsplash_richard_gatley_533872);
+
+
     }
 
     @Override
@@ -331,19 +312,35 @@ public class HomeActivity extends AppCompatActivity implements
             }
             else
             {
-                if(gps_state) //Location received
+                this.textValue.setText("---");
+                this.textSentence.setText(R.string.location_pending_sentence);
+
+                fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>()
                 {
-                    textValue.setText("---");
-                    textSentence.setText(R.string.api_pending_sentence);
-                    executeAPIRequests();
-                    initialized = true;
-                }
-                else
+                    @Override
+                    public void onSuccess(Location location)
+                    {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null)
+                        {
+                            textSentence.setText(R.string.api_pending_sentence);
+                            executeAPIRequests(location);
+                            initialized = true;
+                        }
+                        else
+                        {
+                            textSentence.setText(R.string.location_error);
+                        }
+                    }
+                }).addOnFailureListener(this, new OnFailureListener()
                 {
-                    this.textValue.setText("---");
-                    this.textSentence.setText(R.string.location_pending_sentence);
-                    startLocationUpdates();
-                }
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+                        textValue.setText("---");
+                        textSentence.setText(R.string.location_error);
+                    }
+                });
             }
         }
         else
@@ -394,16 +391,16 @@ public class HomeActivity extends AppCompatActivity implements
     /**
      * Executes API requests and begins UI updates when all APIs have responded
      */
-    public void executeAPIRequests()
+    public void executeAPIRequests(Location location)
     {
         this.open_notify_astros_received = false;
         this.open_notify_iss_now_received = false;
         this.n2yo_received = false;
 
         final String builder_n2yo_url = n2yo_url +
-                currLocation.getLatitude() + "/" +
-                currLocation.getLongitude() + "/" +
-                currLocation.getAltitude() + "/" +
+                location.getLatitude() + "/" +
+                location.getLongitude() + "/" +
+                location.getAltitude() + "/" +
                 n2yo_seconds + "/" +
                 "&apiKey=" + n2yo_apikey;
 
@@ -536,43 +533,6 @@ public class HomeActivity extends AppCompatActivity implements
                     .with(this.fadeOutTextSentenceAnim);
             this.animatorSetOut.start();
         }
-    }
-
-
-
-    /**
-     * Begins GPS location reading
-     * The result is sent to the location listener
-     */
-    private void startLocationUpdates()
-    {
-        try
-        {
-            this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 5, this.locationListener);
-        }
-        catch (SecurityException se)
-        {
-            //Permission not granted
-            Log.e("LOCATION REQUEST", se.getMessage());
-        }
-    }
-
-    /**
-     * Sets GPS connexion state depending on the location he's receiving.
-     * @param location The location received by the GPS.
-     */
-    public void setGPSState(Location location)
-    {
-        this.gps_state = location != null;
-    }
-
-    /**
-     * Sets GPS connexion state.
-     * @param newState The new state to apply.
-     */
-    public void setGPSState(Boolean newState)
-    {
-        this.gps_state = newState;
     }
 
     @Override
