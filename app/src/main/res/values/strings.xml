@@ -6,8 +6,11 @@
     <string name="iss_pos_request_btn">Get position!</string>
     <string name="iss_request_text">Get your first position</string>
     <string name="title_activity_map">Map</string>
+    <string name="title_activity_passes">ISS passes in your sky</string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_observe_info">How to observe the ISS</string>
     <string name="title_activity_dashboard">Dashboard</string>
+    <string name="title_activity_humans">Humans</string>
 
     <!-- Home activity action bar item titles -->
 
@@ -23,6 +26,58 @@
     <string name="sentence">iss speed:</string>
     <string name="value">7.66 km/s</string>
 
+    <!-- Passes activity -->
+
+    <string name="tab_text_1">Pass 1</string>
+    <string name="tab_text_2">Pass 2</string>
+    <string name="tab_text_3">Pass 3</string>
+    <string name="action_observation_info">How to observe the ISS</string>
+    <string name="passes_section_format">Pass %1$d</string>
+
+    <!-- ISS Observation information fragment -->
+
+    <string name="hello_fragment">Hello fragment</string>
+    <string name="iss_observe_info_title">What does all this sighting information mean?</string>
+
+    <string name="iss_observe_info_time_title">time</string>
+    <string name="iss_observe_info_time">Time is when the sighting opportunity will begin in your
+        local time zone. All sightings will occur within a few hours before or after sunrise or
+        sunset. This is the optimum viewing period as the sun reflects off the space station and
+        contrasts against the darker sky.</string>
+
+    <string name="iss_observe_info_visible_title">visible</string>
+    <string name="iss_observe_info_visible">Visible is the maximum time period the space station is
+        visible before crossing back below the horizon.</string>
+
+    <string name="iss_observe_info_maxheight_title">max height</string>
+    <string name="iss_observe_info_maxheight">Max Height is measured in degrees (also known as
+        elevation). It represents the height of the space station from the horizon in the night
+        sky. The horizon is at zero degrees, and directly overhead is ninety degrees. If you hold
+        your fist at arm’s length and place your fist resting on the horizon, the top will be about
+        10 degrees.</string>
+
+    <string name="iss_observe_info_appears_title">appears</string>
+    <string name="iss_observe_info_appears">Appears is the location in the sky where the station
+        will be visible first. This value, like maximum height, also is measured in degrees from
+        the horizon. The letters represent compass directions - N is north, WNW is west by
+        northwest, and so on.</string>
+
+    <string name="iss_observe_info_disappears_title">disappears</string>
+    <string name="iss_observe_info_disappears">Disappears represents where in the night sky the
+        International Space Station will leave your field of view.</string>
+
+    <string name="iss_observe_info_important_title">Important</string>
+    <string name="iss_observe_info_important">The International Space Station orbits with
+        an inclination of 51.6 degrees. This means that, as it orbits, the farthest north and south 
+        of the Equator it will ever go is 51.6 degrees latitude. If you live north or south of 51.6 
+        degrees, the ISS will never go directly over your head- this includes places like Alaska.</string>
+    
+    <string name="iss_observe_info_spot_iss">The space station looks like an airplane or a very
+        bright star moving across the sky, except it doesn\'t have flashing lights or change
+        direction. It will also be moving considerably faster than a typical airplane (airplanes
+        generally fly at about 600 miles (965 km) per hour; the space station flies at 17,500 miles
+        (28,000 km) per hour).</string>
+
     <!-- Nav drawer -->
 
     <string name="nav_drawer_open">Open drawer</string>
@@ -30,6 +85,7 @@
     <string name="nav_header_title">iss tRAcKer</string>
     <string name="nav_menu_humans">Home</string>
     <string name="nav_menu_map">Map</string>
+    <string name="nav_menu_passes">Passes</string>
     <string name="nav_menu_dashboard">Dashboard</string>
 
     <!-- Other -->
@@ -44,5 +100,6 @@
     <string name="astronautTwitterContentDescription">Icon to link to astronaut\'s twitter page</string>
     <string name="astronautWikiContentDescription">Icon to link to astronaut\'s wiki page</string>
     <string name="launch_date">Launch date :</string>
+
 
 </resources>

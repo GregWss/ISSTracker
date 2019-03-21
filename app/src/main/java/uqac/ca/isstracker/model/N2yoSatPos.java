@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import org.json.*;
 
 /**
- * This class holds gathered information about ISS from N2yo website & API.
+ * This class holds predicted ISS positions from N2yo API.
  */
-public class N2yo
+public class N2yoSatPos
 {
     private String satname;
     private int satId;
     private ArrayList<ISSPosition> positions;
 
-    public N2yo(JSONObject obj)
+    public N2yoSatPos(JSONObject obj)
     {
         positions = new ArrayList<>();
         try
@@ -38,7 +38,7 @@ public class N2yo
         }
         catch (Exception e)
         {
-            Log.e("API-N2YO", e.getMessage());
+            Log.e("API-N2YO-SAT-POS", e.getMessage());
         }
     }
 

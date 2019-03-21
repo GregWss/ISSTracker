@@ -9,10 +9,10 @@
     </string-array>
 
     <string-array name="iss_static_values_metric">
-        <item><string name="iss_speed_value_metric">7,66 km/s</string></item>
-        <item><string name="iss_orbits_per_day_value_metric">15,54</string></item>
+        <item><string name="iss_speed_value_metric">7.66 km/s</string></item>
+        <item><string name="iss_orbits_per_day_value_metric">15.54</string></item>
         <item><string name="iss_launch_date_value_metric">nov 20, 1997</string></item>
-        <item><string name="iss_mass_metric">419,7 kg</string></item>
+        <item><string name="iss_mass_metric">419.7 kg</string></item>
     </string-array>
 
     <string-array name="iss_static_values_imperial">
@@ -25,6 +25,6 @@
     <!-- API sentences -->
     <!-- ISSAstros -->
     <string name="iss_people_sentence">humans currently living in space:</string>
-    <!-- N2yo -->
+    <!-- N2yoSatPos -->
     <string name="iss_altitude">iss altitude:</string>
 </resources>

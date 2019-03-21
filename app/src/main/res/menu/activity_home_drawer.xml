@@ -8,6 +8,13 @@
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map_white_24dp"
             android:title="@string/nav_menu_map" />
+
+        <item
+            android:id="@+id/nav_passes"
+            android:icon="@drawable/ic_telescope"
+            android:iconTint="@color/colorPrimaryText"
+            android:title="@string/nav_menu_passes" />
+
         <item
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_dashboard_white_24dp"

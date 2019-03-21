@@ -18,10 +18,10 @@ import uqac.ca.isstracker.R
 import uqac.ca.isstracker.model.Astronaut
 
 // Provide a suitable constructor (depends on the kind of dataset)
-class AstronautAdapter(private val appContext: Context, private val dataset: ArrayList<Astronaut>) : RecyclerView.Adapter<AstronautAdapter.cardViewHolder>()
+class AstronautAdapter(private val appContext: Context, private val dataset: ArrayList<Astronaut>) : RecyclerView.Adapter<AstronautAdapter.CardViewHolder>()
 {
     // Provide a reference to the views for each data item
-    class cardViewHolder(v: View) : RecyclerView.ViewHolder(v)
+    class CardViewHolder(v: View) : RecyclerView.ViewHolder(v)
     {
         var name: TextView
         var role: TextView
@@ -47,17 +47,17 @@ class AstronautAdapter(private val appContext: Context, private val dataset: Arr
     }
 
     // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): cardViewHolder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder
     {
         // create a new view
         val v = LayoutInflater.from(parent.context)
                 .inflate(R.layout.astro_card, parent, false)
 
-        return cardViewHolder(v)
+        return CardViewHolder(v)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(holder: cardViewHolder, position: Int)
+    override fun onBindViewHolder(holder: CardViewHolder, position: Int)
     {
         // - get element from dataset at this position
         val astro = dataset[position]

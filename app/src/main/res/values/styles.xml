@@ -23,6 +23,10 @@
         <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 
+    <style name="ToolBarStyle.TabsStyle">
+        <item name="android:fontFamily">@font/neris_semibold</item>
+    </style>
+
     <style name="PopupStyle" parent="AppTheme">
         <item name="android:textColor">@color/colorSecondaryText</item>
     </style>

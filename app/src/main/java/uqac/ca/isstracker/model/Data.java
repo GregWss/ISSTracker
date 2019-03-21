@@ -1,9 +1,6 @@
 package uqac.ca.isstracker.model;
 
 import android.content.Context;
-import android.widget.Toast;
-
-import com.google.android.gms.common.util.Strings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +14,7 @@ public class Data
 {
     private ArrayList<String> sentences;
     private ArrayList<String> values;
-    public Data(Context context, ISSNow issNowData, ISSAstros issAstrosData, N2yo n2yoData)
+    public Data(Context context, ISSNow issNowData, ISSAstros issAstrosData, N2yoSatPos n2YoSatPosData)
     {
         //Static data
         this.sentences = new ArrayList<>();
@@ -27,22 +24,21 @@ public class Data
         this.values.addAll(Arrays.asList(context.getResources().getStringArray(
                 R.array.iss_static_values_metric)));
 
-
         //API values
         //Astronauts
         this.sentences.add(context.getResources().getString(R.string.iss_people_sentence));
         this.values.add(String.valueOf(issAstrosData.getNumber()));
-        //N2yo
+        //N2yoSatPos
         this.sentences.add(context.getResources().getString(R.string.iss_altitude));
-        this.values.add(String.valueOf(n2yoData.getPositions().get(0).getSataltitude()) + " km");
+        this.values.add(String.valueOf(n2YoSatPosData.getPositions().get(0).getSataltitude()) + " km");
     }
 
     /**
      * Returns the data couple at the given index, containing a sentence and his related value.
      * @param index the index of the data set where to get info from.
-     * @return a data {@code String} array.
+     * @return a data {@code String} array. String at index 0 is the sentence and string at index 1 is the value.
      */
-    public String[] getData(int index)
+    public String[] getSentenceValueCouple(int index)
     {
         if(index < 0 || index > this.size())
             return new String[]{"Error: Index param out of range", "---"};

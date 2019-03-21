@@ -52,8 +52,10 @@ import java.util.TimerTask;
 import uqac.ca.isstracker.model.Data;
 import uqac.ca.isstracker.model.ISSAstros;
 import uqac.ca.isstracker.model.ISSNow;
-import uqac.ca.isstracker.model.N2yo;
+import uqac.ca.isstracker.model.N2yoSatPos;
 import uqac.ca.isstracker.R;
+import uqac.ca.isstracker.model.N2yoVisualPasses;
+import uqac.ca.isstracker.other.Utils;
 
 import static com.android.volley.Request.Method.GET;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -65,7 +67,8 @@ public class HomeActivity extends AppCompatActivity implements
 
     public ISSNow issNowData;
     public ISSAstros issAstrosData;
-    public N2yo n2yoData;
+    public N2yoSatPos n2YoSatPosData;
+    public N2yoVisualPasses n2yoVisualPasses;
     public Data data;
     private int dataIndex;
     private int backgroundIndex;
@@ -82,13 +85,14 @@ public class HomeActivity extends AppCompatActivity implements
     private static final String open_notify_url_iss_now = "http://api.open-notify.org/iss-now";
     private static final String open_notify_url_astros = "http://api.open-notify.org/astros";
     //https://www.n2yo.com/rest/v1/satellite/positions/25544/48.418844/71.056855/77/1/&apiKey=XSLP3D-VBZHHR-4MHVUR-3YE5
-    private static final String n2yo_url = "https://www.n2yo.com/rest/v1/satellite/positions/25544/";
-    private String n2yo_seconds = "1";
+    private static final String n2yo_sat_pos_url = "https://www.n2yo.com/rest/v1/satellite/positions/25544/";
+    private String n2yo_sat_pos_seconds = "1";
     private static final String n2yo_apikey = "XSLP3D-VBZHHR-4MHVUR-3YE5";
 
     private boolean open_notify_iss_now_received;
     private boolean open_notify_astros_received;
-    private boolean n2yo_received;
+    private boolean n2yo_sat_pos_received;
+    private boolean n2yo_visual_passes_received;
 
     private RequestQueue mRequestQueue;
 
@@ -170,8 +174,6 @@ public class HomeActivity extends AppCompatActivity implements
         this.textValue.setText("");
         this.textSentence.setText("");
 
-
-
         this.animationTextValueDown     = ObjectAnimator.ofFloat(textValue, "translationY", -100f)
                 .setDuration(2000);
 
@@ -201,8 +203,6 @@ public class HomeActivity extends AppCompatActivity implements
         this.backgroundImages.add(R.drawable.unsplash_nasa_63029);
         this.backgroundImages.add(R.drawable.unsplash_niketh_vellanki_252581);
         this.backgroundImages.add(R.drawable.unsplash_richard_gatley_533872);
-
-
     }
 
     @Override
@@ -267,7 +267,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item)
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
     {
         // Handle navigation view item clicks here.
         switch(item.getItemId())
@@ -275,6 +275,11 @@ public class HomeActivity extends AppCompatActivity implements
             case R.id.nav_map:
                 Intent mapIntent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(mapIntent);
+                break;
+
+            case R.id.nav_passes:
+                Intent passesIntent = new Intent(getApplicationContext(), PassesActivity.class);
+                startActivity(passesIntent);
                 break;
 
             case R.id.nav_dashboard:
@@ -336,7 +341,7 @@ public class HomeActivity extends AppCompatActivity implements
             //Check if location service is enabled on user's device
             if (!this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
             {
-                promptEnableLocation();
+                Utils.Companion.promptEnableLocation(this);
             }
             else
             {
@@ -423,13 +428,14 @@ public class HomeActivity extends AppCompatActivity implements
     {
         this.open_notify_astros_received = false;
         this.open_notify_iss_now_received = false;
-        this.n2yo_received = false;
+        this.n2yo_sat_pos_received = false;
+        this.n2yo_visual_passes_received = false;
 
-        final String builder_n2yo_url = n2yo_url +
+        final String builder_n2yo_sat_pos_url = n2yo_sat_pos_url +
                 location.getLatitude() + "/" +
                 location.getLongitude() + "/" +
                 location.getAltitude() + "/" +
-                n2yo_seconds + "/" +
+                n2yo_sat_pos_seconds + "/" +
                 "&apiKey=" + n2yo_apikey;
 
         // pass "null" for GET requests
@@ -475,14 +481,14 @@ public class HomeActivity extends AppCompatActivity implements
         );
         addToRequestQueue(req_iss_astros);
 
-        JsonObjectRequest req_n2yo = new JsonObjectRequest(GET, builder_n2yo_url, null,
+        JsonObjectRequest req_n2yo_sat_pos = new JsonObjectRequest(GET, builder_n2yo_sat_pos_url, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
                     public void onResponse(JSONObject response)
                     {
-                        n2yo_received = true;
-                        n2yoData = new N2yo(response);
+                        n2yo_sat_pos_received = true;
+                        n2YoSatPosData = new N2yoSatPos(response);
                         startUIUpdates();
                     }
                 }, new Response.ErrorListener()
@@ -494,7 +500,7 @@ public class HomeActivity extends AppCompatActivity implements
                     }
                 }
         );
-        addToRequestQueue(req_n2yo);
+        addToRequestQueue(req_n2yo_sat_pos);
     }
 
     /**
@@ -503,9 +509,9 @@ public class HomeActivity extends AppCompatActivity implements
     private void startUIUpdates()
     {
         //Set values only if all APIs have responded
-        if(this.open_notify_iss_now_received && this.open_notify_astros_received && this.n2yo_received)
+        if(this.open_notify_iss_now_received && this.open_notify_astros_received && this.n2yo_sat_pos_received)
         {
-            this.data = new Data(getApplicationContext(), null, issAstrosData, n2yoData);
+            this.data = new Data(getApplicationContext(), null, issAstrosData, n2YoSatPosData);
 
             this.timer.scheduleAtFixedRate(new TimerTask()
             {
@@ -530,13 +536,13 @@ public class HomeActivity extends AppCompatActivity implements
      */
     private void setValuesAndAnimate()
     {
-        if(this.open_notify_iss_now_received && this.open_notify_astros_received && this.n2yo_received)
+        if(this.open_notify_iss_now_received && this.open_notify_astros_received && this.n2yo_sat_pos_received)
         {
             this.textSentence.setAlpha(0f);
             this.textValue.setAlpha(0f);
 
-            this.textSentence.setText(data.getData(dataIndex)[0]);
-            this.textValue.setText(data.getData(dataIndex)[1]);
+            this.textSentence.setText(data.getSentenceValueCouple(dataIndex)[0]);
+            this.textValue.setText(data.getSentenceValueCouple(dataIndex)[1]);
             dataIndex++;
             if(dataIndex >= data.size())
                 dataIndex = 0;
@@ -592,41 +598,12 @@ public class HomeActivity extends AppCompatActivity implements
     {
         ActivityCompat.requestPermissions(
                 this,
-                new String[]{
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION
+                new String[]
+                {
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
                 },
                 PERMISSIONS_REQUEST
         );
-    }
-
-    private void promptEnableLocation()
-    {
-        AlertDialog.Builder alertPromptEnableGPS = new AlertDialog.Builder(this);
-
-        alertPromptEnableGPS.setMessage("Help us determine your location. That means sending " +
-                "anonymous location data to us only when he app is running.")
-                .setTitle("Use location service?")
-                .setCancelable(true)
-                .setPositiveButton("Agree", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        //Intent on location source system settings
-                        Intent callGPSSettingIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(callGPSSettingIntent);
-                    }
-                });
-
-        alertPromptEnableGPS.setNegativeButton("Disagree", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int id)
-            {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alertActivateLocation = alertPromptEnableGPS.create();
-        alertActivateLocation.show();
     }
 }

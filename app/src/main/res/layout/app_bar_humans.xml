@@ -20,7 +20,8 @@
             android:elevation="4dp"
             android:theme="@style/ToolBarStyle"
             app:popupTheme="@style/PopupStyle"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="@string/title_activity_humans"/>
 
     </android.support.design.widget.AppBarLayout>
 
