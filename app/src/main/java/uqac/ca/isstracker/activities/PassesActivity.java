@@ -1,9 +1,6 @@
 package uqac.ca.isstracker.activities;
 
 import android.Manifest;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -64,8 +61,8 @@ public class PassesActivity extends AppCompatActivity
 
     private RequestQueue mRequestQueue;
     private static final String n2yo_visual_passes_url = "http://www.n2yo.com/rest/v1/satellite/visualpasses/25544/";
-    private int n2yo_visual_passes_days = 10;
-    private int n2yo_visual_passes_min_visibility = 30;
+    private static int n2yo_visual_passes_days = 2;
+    private static int n2yo_visual_passes_min_visibility = 200;
     private static final String n2yo_apikey = "XSLP3D-VBZHHR-4MHVUR-3YE5";
 
     private static N2yoVisualPasses n2yoVisualPasses;
@@ -243,6 +240,44 @@ public class PassesActivity extends AppCompatActivity
             //final DateFormat dateFormat = new SimpleDateFormat("yyyy MMMM dd", getResources().getConfiguration().getLocales().get(0));
             final DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss z", getResources().getConfiguration().getLocales().get(0));
             dateFormat.setTimeZone(timeZone);
+
+            //Check if there's not a 'sectionNumber-ish' pass
+            if(sectionNumber > n2yoVisualPasses.getPasses().size())
+            {
+                this.rootView.findViewById(R.id.startPassLayout).setVisibility(View.GONE);
+                this.rootView.findViewById(R.id.maxHeightPassLayout).setVisibility(View.GONE);
+                this.rootView.findViewById(R.id.endPassLayout).setVisibility(View.GONE);
+
+                this.rootView.findViewById(R.id.startLabel).setVisibility(View.GONE);
+                this.rootView.findViewById(R.id.maxHeightLabel).setVisibility(View.GONE);
+                this.rootView.findViewById(R.id.endLabel).setVisibility(View.GONE);
+
+                this.rootView.findViewById(R.id.visibilitySecondsLabel).setVisibility(View.GONE);
+                ((TextView) this.rootView.findViewById(R.id.visibleLabel)).setText(R.string.pass_no_pass_label);
+                String count = "---";
+                switch(sectionNumber)
+                {
+                    case 1:
+                        count = getResources().getString(R.string.pass_count_first);
+                        break;
+
+                    case 2:
+                        count = getResources().getString(R.string.pass_count_second);
+                        break;
+
+                    case 3:
+                        count = getResources().getString(R.string.pass_count_third);
+                        break;
+                }
+
+                ((TextView) this.rootView.findViewById(R.id.visibilityView))
+                        .setText(getString(R.string.pass_no_pass_message,
+                                count,
+                                n2yo_visual_passes_min_visibility,
+                                n2yo_visual_passes_days));
+
+                return this.rootView;
+            }
 
             N2yoPass pass = n2yoVisualPasses.getPasses().get(sectionNumber - 1);
 
