@@ -10,7 +10,7 @@
     <string name="title_activity_home">Home</string>
     <string name="title_activity_observe_info">How to observe the ISS</string>
     <string name="title_activity_dashboard">Dashboard</string>
-    <string name="title_activity_humans">Humans</string>
+    <string name="title_activity_astros">Astros</string>
 
     <!-- Home activity action bar item titles -->
 
@@ -95,6 +95,7 @@
     <string name="nav_menu_map">Map</string>
     <string name="nav_menu_passes">Passes</string>
     <string name="nav_menu_dashboard">Dashboard</string>
+    <string name="nav_menu_astros">Astros</string>
 
     <!-- Other -->
 

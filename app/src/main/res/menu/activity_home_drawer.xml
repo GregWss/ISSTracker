@@ -16,9 +16,10 @@
             android:title="@string/nav_menu_passes" />
 
         <item
-            android:id="@+id/nav_dashboard"
-            android:icon="@drawable/ic_dashboard_white_24dp"
-            android:title="@string/nav_menu_dashboard" />
+            android:id="@+id/nav_astros"
+            android:icon="@drawable/ic_account_multiple"
+            android:iconTint="@color/colorPrimaryText"
+            android:title="@string/nav_menu_astros" />
     </group>
 
 </menu>

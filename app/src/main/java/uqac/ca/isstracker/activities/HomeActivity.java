@@ -282,8 +282,8 @@ public class HomeActivity extends AppCompatActivity implements
                 startActivity(passesIntent);
                 break;
 
-            case R.id.nav_dashboard:
-                Intent dashboardIntent = new Intent(getApplicationContext(), HumansActivity.class);
+            case R.id.nav_astros:
+                Intent dashboardIntent = new Intent(getApplicationContext(), AstrosActivity.class);
                 startActivity(dashboardIntent);
                 break;
         }

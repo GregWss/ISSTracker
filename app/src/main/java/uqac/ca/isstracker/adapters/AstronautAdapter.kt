@@ -64,7 +64,7 @@ class AstronautAdapter(private val appContext: Context, private val dataset: Arr
 
         // - replace the contents of the view with that element
         //Texts
-        holder.name.text = astro.name
+        holder.name.text = astro.name.toLowerCase()
         holder.role.text = "Role: " + astro.role
         holder.launchDate.text = "Launch date: " + astro.launchDate
         holder.bio.text = astro.bio

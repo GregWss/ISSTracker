@@ -16,12 +16,13 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="0dp"
-                android:layout_height="194dp"
+                android:layout_height="300dp"
                 android:background="@color/colorPrimary"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -29,30 +30,44 @@
                 app:layout_constraintTop_toTopOf="parent"
                 card_view:srcCompat="@color/colorPrimary" />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/neris_semibold"
-                android:gravity="bottom|start"
-                android:text="Name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/countryFlag"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img" />
-
-            <ImageView
-                android:id="@+id/countryFlag"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
                 android:layout_marginEnd="16dp"
-                android:contentDescription="@string/countryFlagContentDescription"
-                app:layout_constraintBottom_toBottomOf="@+id/name"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintBottom_toTopOf="@+id/role"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginEnd="8dp"
+                    android:autoSizeMaxTextSize="24sp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/major_mono_display_regular"
+                    android:gravity="bottom|start"
+                    android:text="Name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/countryFlag"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/countryFlag"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:contentDescription="@string/countryFlagContentDescription"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@+id/name"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
             <TextView
                 android:id="@+id/role"
@@ -64,10 +79,12 @@
                 android:gravity="bottom|start"
                 android:text="Role"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
             <TextView
                 android:id="@+id/launchDate"
@@ -79,6 +96,7 @@
                 android:gravity="bottom|start"
                 android:text="Launch date"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +112,7 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="24dp"
                 android:text="Bio"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +125,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
                 android:paddingBottom="16dp"
-                android:tint="@color/colorPrimary"
+                android:tint="@color/colorSecondary"
                 app:layout_constraintEnd_toStartOf="@+id/wiki"
                 app:layout_constraintTop_toTopOf="@+id/wiki"
                 card_view:srcCompat="@drawable/ic_twitter" />
@@ -118,7 +137,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
                 android:paddingBottom="16dp"
-                android:tint="@color/colorPrimary"
+                android:tint="@color/colorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bio"
                 card_view:srcCompat="@drawable/ic_wikipedia" />

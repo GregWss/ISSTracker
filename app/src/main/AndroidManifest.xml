@@ -86,7 +86,7 @@
             android:name=".activities.DashboardActivity"
             android:label="@string/title_activity_dashboard" />
         <activity
-            android:name=".activities.HumansActivity"
+            android:name=".activities.AstrosActivity"
             android:label="@string/activity_humans_labels"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">

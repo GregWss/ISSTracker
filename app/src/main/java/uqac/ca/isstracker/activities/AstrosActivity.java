@@ -2,7 +2,6 @@ package uqac.ca.isstracker.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +25,7 @@ import uqac.ca.isstracker.R;
 import uqac.ca.isstracker.adapters.AstronautAdapter;
 import uqac.ca.isstracker.model.Astronaut;
 
-public class HumansActivity extends AppCompatActivity
+public class AstrosActivity extends AppCompatActivity
 {
     private RequestQueue mRequestQueue;
 
@@ -42,7 +41,7 @@ public class HumansActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_humans);
+        setContentView(R.layout.activity_astros);
         Toolbar toolbar = findViewById(R.id.humansToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

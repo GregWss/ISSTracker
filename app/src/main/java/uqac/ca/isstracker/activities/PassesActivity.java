@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -195,6 +196,12 @@ public class PassesActivity extends AppCompatActivity
         {
             Intent infoFragment = new Intent(getApplicationContext(), ObserveIssInfoActivity.class);
             startActivity(infoFragment);
+            return true;
+        }
+
+        if(id == R.id.home)
+        {
+            NavUtils.navigateUpFromSameTask(this);
             return true;
         }
 
