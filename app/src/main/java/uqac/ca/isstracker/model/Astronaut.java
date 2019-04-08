@@ -13,15 +13,15 @@ public class Astronaut implements Comparable<Astronaut>
     /**
      * Instantiates a new Astronaut.
      *
-     * @param name        The viewName of the astronaut
-     * @param image       The url to a profile image of the astronaut
-     * @param countryLink The url to a country flag the astronaut was born in
-     * @param launchDate  The date where the astronaut was launched
-     * @param role        The viewRole the astronaut has on the aircraft
-     * @param location    The location astronaut is located at. (Often times it's ISS)
-     * @param bio         The viewBio associated with the astronaut
-     * @param wiki        The wiki url of the astronaut
-     * @param twitter     The twitter url of the astronaut
+     * @param name        Name of astronaut
+     * @param image       Profile image
+     * @param countryLink Country flag uri image
+     * @param launchDate  Date of launch
+     * @param role        The role in the ISS (Ingeener)
+     * @param location    Location in ISS
+     * @param bio         Biography of astronaut
+     * @param wiki        If exist link to astronaut's wikipedia
+     * @param twitter     If exist link to astronaut's twitter
      */
     public Astronaut(String name, String image, String countryLink, String launchDate, String role, String location, String bio, String wiki, String twitter)
     {
@@ -37,9 +37,8 @@ public class Astronaut implements Comparable<Astronaut>
     }
 
     /**
-     * Gets viewName.
-     *
-     * @return the viewName
+     * Gets name.
+     * @return the name
      */
     public String getName() {
         return name;
@@ -47,7 +46,6 @@ public class Astronaut implements Comparable<Astronaut>
 
     /**
      * Gets image.
-     *
      * @return the image
      */
     public String getImage() {
@@ -55,9 +53,8 @@ public class Astronaut implements Comparable<Astronaut>
     }
 
     /**
-     * Gets country link.
-     *
-     * @return the country link
+     * Gets flag image.
+     * @return the country flag link
      */
     public String getCountryLink() {
         return countryLink;
@@ -65,7 +62,6 @@ public class Astronaut implements Comparable<Astronaut>
 
     /**
      * Gets launch date.
-     *
      * @return the launch date
      */
     public String getLaunchDate() {
@@ -73,9 +69,8 @@ public class Astronaut implements Comparable<Astronaut>
     }
 
     /**
-     * Gets viewRole.
-     *
-     * @return the viewRole
+     * Gets role.
+     * @return the role of the astronaut
      */
     public String getRole() {
         return role;
@@ -83,7 +78,6 @@ public class Astronaut implements Comparable<Astronaut>
 
     /**
      * Gets location.
-     *
      * @return the location
      */
     public String getLocation() {
@@ -91,9 +85,8 @@ public class Astronaut implements Comparable<Astronaut>
     }
 
     /**
-     * Gets viewBio.
-     *
-     * @return the viewBio
+     * Gets bioggraphy.
+     * @return the description
      */
     public String getBio() {
         return bio;
@@ -101,7 +94,6 @@ public class Astronaut implements Comparable<Astronaut>
 
     /**
      * Gets wiki.
-     *
      * @return the wiki
      */
     public String getWiki() {
@@ -110,7 +102,6 @@ public class Astronaut implements Comparable<Astronaut>
 
     /**
      * Gets twitter.
-     *
      * @return the twitter
      */
     public String getTwitter() {
@@ -118,11 +109,9 @@ public class Astronaut implements Comparable<Astronaut>
     }
 
     /**
-     * Sorts astronauts by their location first (ISS, Tiangong-2, etc...) then by their roles
-     * (Commander, Flight Engineer, etc...)
-     *
-     * @param astronaut An astronaut that needs to be compared with current astronaut
-     * @return Smaller, equal, or bigger?
+     * Sorts astronauts by location then by role
+     * @param astronaut
+     * @return Smaller, equal, or bigger? to sort array
      */
     @Override
     public int compareTo(@NonNull Astronaut astronaut) {
