@@ -15,8 +15,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="36dp"
+        android:fontFamily="@font/major_mono_display_regular"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/nav_header_title"
-        android:textAppearance="@style/AppTheme.MajorFont" />
+        android:textSize="24sp" />
 
 </LinearLayout>

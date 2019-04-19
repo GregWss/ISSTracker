@@ -48,7 +48,6 @@ public class AstrosActivity extends AppCompatActivity
 
         recyclerView = findViewById(R.id.astroCardsView);
 
-
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
 
         dataset = new ArrayList<>();
