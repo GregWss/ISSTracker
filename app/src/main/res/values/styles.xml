@@ -2,10 +2,16 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorSecondary</item>
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/neris_semibold</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryText</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:colorAccent">@color/colorSecondary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,6 +19,34 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="AppTheme.Settings">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/neris_semibold</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryText</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:titleTextColor">@color/colorSecondary</item>
+        <item name="android:colorAccent">@color/colorSecondary</item>
+    </style>
+
+    <style name="AppThemeDialog" parent="Theme.AppCompat.Dialog">
+        <item name="dialogCornerRadius">0dp</item>
+
+        <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/neris_semibold</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryText</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:titleTextColor">@color/colorSecondary</item>
+        <item name="android:colorAccent">@color/colorSecondary</item>
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
+
+        <item name="positiveButtonText">@android:string/ok</item>
+        <item name="negativeButtonText">@android:string/cancel</item>
     </style>
 
     <style name="ToolBarStyle" parent="AppTheme">

@@ -20,6 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -68,7 +69,6 @@ public class HomeActivity extends AppCompatActivity implements
     public ISSNow issNowData;
     public ISSAstros issAstrosData;
     public N2yoSatPos n2YoSatPosData;
-    public N2yoVisualPasses n2yoVisualPasses;
     public Data data;
     private int dataIndex;
     private int backgroundIndex;
@@ -149,7 +149,7 @@ public class HomeActivity extends AppCompatActivity implements
         this.animatorSetIn          = new AnimatorSet();
         this.animatorSetOut         = new AnimatorSet();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppThemeDialog));
         // Add the buttons
         builder.setPositiveButton("Ok!", new DialogInterface.OnClickListener()
         {
@@ -253,7 +253,10 @@ public class HomeActivity extends AppCompatActivity implements
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
+        {
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             return true;
+        }
 
         if (id == R.id.action_refresh)
         {

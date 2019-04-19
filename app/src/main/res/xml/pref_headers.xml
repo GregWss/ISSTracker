@@ -1,0 +1,10 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header
+        android:fragment="uqac.ca.isstracker.activities.SettingsActivity$PassesSearchPreferenceFragment"
+        android:icon="@drawable/ic_telescope_white"
+        android:title="@string/pref_header_passes" />
+
+</preference-headers>

@@ -1,0 +1,38 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sample="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Search parameters">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="use_fake_location"
+            android:title="Use fake location" />
+
+        <com.pavelsikun.seekbarpreference.SeekBarPreference
+            android:defaultValue="200"
+            android:enabled="true"
+            android:key="min_visibility"
+            android:summary="@string/min_visibility_summary"
+            android:title="@string/min_visibility_title"
+
+            sample:msbp_dialogEnabled="false"
+            sample:msbp_interval="30"
+            sample:msbp_minValue="0"
+            sample:msbp_maxValue="1200"
+            sample:msbp_measurementUnit="@string/min_visibility_unit" />
+
+        <com.pavelsikun.seekbarpreference.SeekBarPreference
+            android:defaultValue="2"
+            android:enabled="true"
+            android:key="days_scope"
+            android:summary="@string/days_scope_summary"
+            android:title="@string/days_scope_title"
+
+            sample:msbp_dialogEnabled="false"
+            sample:msbp_interval="1"
+            sample:msbp_minValue="1"
+            sample:msbp_maxValue="10"
+            sample:msbp_measurementUnit="@string/days_scope_unit" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

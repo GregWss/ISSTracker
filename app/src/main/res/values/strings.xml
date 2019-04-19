@@ -3,6 +3,7 @@
     <string name="app_name">ISSTracker</string>
     <string name="activity_humans_labels">Humans</string>
     <string name="activity_map_labels">Map</string>
+    <string name="activity_settings_label">Settings</string>
     <string name="iss_pos_request_btn">Get position!</string>
     <string name="iss_request_text">Get your first position</string>
     <string name="title_activity_map">Map</string>
@@ -81,7 +82,7 @@
         an inclination of 51.6 degrees. This means that, as it orbits, the farthest north and south 
         of the Equator it will ever go is 51.6 degrees latitude. If you live north or south of 51.6 
         degrees, the ISS will never go directly over your head- this includes places like Alaska.</string>
-    
+
     <string name="iss_observe_info_spot_iss">The space station looks like an airplane or a very
         bright star moving across the sky, except it doesn\'t have flashing lights or change
         direction. It will also be moving considerably faster than a typical airplane (airplanes
@@ -111,6 +112,16 @@
     <string name="astronautTwitterContentDescription">Icon to link to astronaut\'s twitter page</string>
     <string name="astronautWikiContentDescription">Icon to link to astronaut\'s wiki page</string>
     <string name="launch_date">Launch date :</string>
+    <string name="title_activity_settings">Settings</string>
 
+    <!-- Strings related to Settings -->
+    <string name="pref_header_passes">Passes search</string>
 
+    <string name="min_visibility_title">Minimum visibility</string>
+    <string name="min_visibility_summary">Minimum visibility a pass must have</string>
+    <string name="min_visibility_unit">seconds</string>
+
+    <string name="days_scope_title">Days scope</string>
+    <string name="days_scope_summary">Days scope within to search passes</string>
+    <string name="days_scope_unit">day(s)</string>
 </resources>
