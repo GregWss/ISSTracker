@@ -144,6 +144,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/endPassLayout" />
 
+        <Button
+            android:id="@+id/AlarmSetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="172dp"
+            android:layout_marginTop="4dp"
+            android:enabled="false"
+            android:text="@string/set_alarm_button"
+            app:layout_constraintStart_toEndOf="@+id/visibleLabel"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

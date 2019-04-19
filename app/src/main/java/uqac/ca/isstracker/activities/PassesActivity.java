@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,8 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import uqac.ca.isstracker.R;
+import uqac.ca.isstracker.model.Alarm;
+import uqac.ca.isstracker.model.AlarmService;
 import uqac.ca.isstracker.model.N2yoPass;
 import uqac.ca.isstracker.model.N2yoVisualPasses;
 import uqac.ca.isstracker.other.Utils;
@@ -209,6 +212,25 @@ public class PassesActivity extends AppCompatActivity
     }
 
     /**
+     * Call alarm service
+     * @param view
+     */
+    public void startAlarmService(View view) {
+
+        Intent serviceIntent = new Intent(this, AlarmService.class);
+        startService(serviceIntent);
+    }
+
+    /**
+     * Stop all alarms
+     * @param view
+     */
+    public void stopAlarms(View view) {
+
+        new Alarm().cancelAlarm(this);
+    }
+
+    /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment
@@ -294,6 +316,19 @@ public class PassesActivity extends AppCompatActivity
             Date startDate = Date.from(Instant.ofEpochSecond(pass.getStartUTC()));
             Date maxDate = Date.from(Instant.ofEpochSecond(pass.getMaxUTC()));
             Date endDate = Date.from(Instant.ofEpochSecond(pass.getEndUTC()));
+
+            // Alarm button
+            Button AlarmButton = this.rootView.findViewById(R.id.AlarmSetButton);
+            AlarmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO
+                    //Set alarm here
+                    //Intent serviceIntent = new Intent(this, AlarmService.class);
+                    //startService(serviceIntent);
+                    getActivity().startService(new Intent(getActivity(), AlarmService.class));
+                }
+            });
 
             TextView visibilityView = this.rootView.findViewById(R.id.visibilityView);
             visibilityView.setText(String.valueOf(pass.getDuration()));

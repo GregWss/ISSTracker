@@ -41,6 +41,8 @@
     <string name="pass_no_pass_message">unable to find a %1$s pass, the iss seems not to cross your
         sky with at least %2$d seconds of visibility over the next %3$d day(s) as parameters.</string>
 
+    <string name="set_alarm_button">Recall me</string>
+
 
     <!-- ISS Observation information fragment -->
 
