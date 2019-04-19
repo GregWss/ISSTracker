@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class AlarmAutoStart extends BroadcastReceiver {
+/*public class AlarmAutoStart extends BroadcastReceiver {
 
     Alarm alarm = new Alarm();
     @Override
@@ -17,4 +17,4 @@ public class AlarmAutoStart extends BroadcastReceiver {
             alarm.setAlarm(context);
         }
     }
-}
+}*/

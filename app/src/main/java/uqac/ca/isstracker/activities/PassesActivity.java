@@ -355,7 +355,7 @@ public class PassesActivity extends AppCompatActivity
             final int passHours = startDate.getHours();
             final int passMinutes = startDate.getMinutes();
 
-            // Alarm button
+            // Alarm set button
             Button AlarmButton = this.rootView.findViewById(R.id.AlarmSetButton);
             AlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -369,6 +369,15 @@ public class PassesActivity extends AppCompatActivity
 
                     // Start the service
                     getActivity().startService(serviceIntent);
+                }
+            });
+
+            // Alarm cancel button
+            Button CancelAlarmButton = this.rootView.findViewById(R.id.AlarmCancelButton);
+            CancelAlarmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new Alarm().cancelAlarm(getActivity());
                 }
             });
 

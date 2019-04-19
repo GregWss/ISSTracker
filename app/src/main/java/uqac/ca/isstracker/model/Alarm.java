@@ -31,6 +31,7 @@ public class Alarm extends BroadcastReceiver {
     }
 
     public void setAlarm(Context context, int day, int hours, int minutes) {
+        //TODO : a notification instead of a toast
 
         Log.i("DIM", "Alarm.setAlarm");
 

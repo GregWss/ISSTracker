@@ -43,6 +43,7 @@
         sky with at least %2$d seconds of visibility over the next %3$d day(s) as parameters.</string>
 
     <string name="set_alarm_button">Recall me</string>
+    <string name="cancel_alarm_button">Cancel alarms</string>
 
 
     <!-- ISS Observation information fragment -->
