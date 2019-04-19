@@ -69,7 +69,6 @@ public class HomeActivity extends AppCompatActivity implements
     public ISSNow issNowData;
     public ISSAstros issAstrosData;
     public N2yoSatPos n2YoSatPosData;
-    public N2yoVisualPasses n2yoVisualPasses;
     public Data data;
     private int dataIndex;
     private int backgroundIndex;

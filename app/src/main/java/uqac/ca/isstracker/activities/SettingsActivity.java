@@ -25,11 +25,6 @@ import java.util.List;
  * handset devices, settings are presented as a single list. On tablets,
  * settings are split by category, with category headers shown to the left of
  * the list of settings.
- * <p>
- * See <a href="http://developer.android.com/design/patterns/settings.html">
- * Android Design: Settings</a> for design guidelines and the <a
- * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
- * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity
 {
@@ -64,26 +59,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 preference.setSummary(stringValue);
             }
             return true;
-        }
-    };
-
-    /**
-     * Listener for Days scope preference
-     */
-    private Preference.OnPreferenceChangeListener daysScopeListener = new Preference.OnPreferenceChangeListener()
-    {
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object newValue)
-        {
-            int days = Integer.parseInt((String) newValue);
-
-            if(days >= 1 && days <= 10)
-                return true;
-            else
-            {
-                Toast.makeText(SettingsActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
-                return false;
-            }
         }
     };
 

@@ -3,6 +3,7 @@ package uqac.ca.isstracker.activities;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -11,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -61,10 +63,15 @@ public class PassesActivity extends AppCompatActivity
     public static final String TAG = "ACTIVITY - PASSES";
 
     private RequestQueue mRequestQueue;
-    private static final String n2yo_visual_passes_url = "http://www.n2yo.com/rest/v1/satellite/visualpasses/25544/";
+    private static String n2yo_visual_passes_url;
     private static int n2yo_visual_passes_days = 2;
     private static int n2yo_visual_passes_min_visibility = 200;
-    private static final String n2yo_apikey = "XSLP3D-VBZHHR-4MHVUR-3YE5";
+    private static String n2yo_apikey;
+
+    //Values from api's example if no pass is found at user location
+    private static final double fakeLatitude = 48.418844;
+    private static final double fakeLongitude = 71.056855;
+    private static final double fakeAltitude = 77;
 
     private static N2yoVisualPasses n2yoVisualPasses;
 
@@ -93,6 +100,15 @@ public class PassesActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //API string values
+        n2yo_visual_passes_url = getResources().getString(R.string.N2YO_API_HEAD);
+        n2yo_apikey = getResources().getString(R.string.N2YO_API_KEY);
+
+        //Get preferences values
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        n2yo_visual_passes_days = sharedPreferences.getInt("days_scope", 2);
+        n2yo_visual_passes_min_visibility = sharedPreferences.getInt("min_visibility", 200);
+
         //N2yo visual passes API request
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -116,13 +132,30 @@ public class PassesActivity extends AppCompatActivity
                         // Got last known location. In some rare situations this can be null.
                         if (location != null)
                         {
-                            final String builder_n2yo_visual_passes_url = n2yo_visual_passes_url +
-                                    location.getLatitude() + "/" +
-                                    location.getLongitude() + "/" +
-                                    location.getAltitude() + "/" +
-                                    n2yo_visual_passes_days + "/" +
-                                    n2yo_visual_passes_min_visibility + "/" +
-                                    "&apiKey=" + n2yo_apikey;
+                            final String builder_n2yo_visual_passes_url;
+
+                            if(sharedPreferences.getBoolean("use_fake_location", false))
+                            {
+                                builder_n2yo_visual_passes_url = n2yo_visual_passes_url +
+                                        fakeLatitude + "/" +
+                                        fakeLongitude + "/" +
+                                        fakeAltitude + "/" +
+                                        n2yo_visual_passes_days + "/" +
+                                        n2yo_visual_passes_min_visibility + "/" +
+                                        "&apiKey=" + n2yo_apikey;
+                            }
+                            else
+                            {
+                                builder_n2yo_visual_passes_url = n2yo_visual_passes_url +
+                                        location.getLatitude() + "/" +
+                                        location.getLongitude() + "/" +
+                                        location.getAltitude() + "/" +
+                                        n2yo_visual_passes_days + "/" +
+                                        n2yo_visual_passes_min_visibility + "/" +
+                                        "&apiKey=" + n2yo_apikey;
+                            }
+
+                            Log.e(TAG, builder_n2yo_visual_passes_url);
 
                             addToRequestQueue(new JsonObjectRequest(GET, builder_n2yo_visual_passes_url, null,
                                 new Response.Listener<JSONObject>()
@@ -261,7 +294,7 @@ public class PassesActivity extends AppCompatActivity
 
                 this.rootView.findViewById(R.id.visibilitySecondsLabel).setVisibility(View.GONE);
                 ((TextView) this.rootView.findViewById(R.id.visibleLabel)).setText(R.string.pass_no_pass_label);
-                String count = "---";
+                String count = "";
                 switch(sectionNumber)
                 {
                     case 1:
