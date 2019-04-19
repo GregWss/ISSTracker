@@ -30,7 +30,7 @@ public class Alarm extends BroadcastReceiver {
         wl.release();
     }
 
-    public void setAlarm(Context context) {
+    public void setAlarm(Context context, int day, int hours, int minutes) {
 
         Log.i("DIM", "Alarm.setAlarm");
 
@@ -39,14 +39,10 @@ public class Alarm extends BroadcastReceiver {
 
         i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         i.putExtra("EXTRA_ALARME", "IL EST l'HEURE");
-        PendingIntent pi = PendingIntent.getBroadcast(context, 1, i, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 1, i, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        //PendingIntent pi2 = PendingIntent.getBroadcast(context, 1, i2, PendingIntent.FLAG_CANCEL_CURRENT);
-        //am.setAlarmClock(new AlarmManager.AlarmClockInfo(getTargetTime(2, 18, 30).getTimeInMillis(), pi), pi);        // méthode normale
-
-        Calendar now_plus_1_minute = Calendar.getInstance();
-        now_plus_1_minute.add(Calendar.MINUTE, 1);
-        am.setAlarmClock(new AlarmManager.AlarmClockInfo(now_plus_1_minute.getTimeInMillis(), pi), pi);
+        Calendar datePass = getTargetTime(day, hours, minutes);
+        am.setAlarmClock(new AlarmManager.AlarmClockInfo(datePass.getTimeInMillis(), pi), pi);
     }
 
     public void cancelAlarm(Context context)

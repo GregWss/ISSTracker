@@ -350,16 +350,25 @@ public class PassesActivity extends AppCompatActivity
             Date maxDate = Date.from(Instant.ofEpochSecond(pass.getMaxUTC()));
             Date endDate = Date.from(Instant.ofEpochSecond(pass.getEndUTC()));
 
+            //TODO : careful, legacy code here
+            final int passDay = startDate.getDay();
+            final int passHours = startDate.getHours();
+            final int passMinutes = startDate.getMinutes();
+
             // Alarm button
             Button AlarmButton = this.rootView.findViewById(R.id.AlarmSetButton);
             AlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO
-                    //Set alarm here
-                    //Intent serviceIntent = new Intent(this, AlarmService.class);
-                    //startService(serviceIntent);
-                    getActivity().startService(new Intent(getActivity(), AlarmService.class));
+                    //TODO : change this legacy code
+                    //Setting an intent with the date of the next pass
+                    Intent serviceIntent = new Intent(getActivity(), AlarmService.class);
+                    serviceIntent.putExtra("Day", passDay);
+                    serviceIntent.putExtra("Hours", passHours);
+                    serviceIntent.putExtra("Minutes", passMinutes);
+
+                    // Start the service
+                    getActivity().startService(serviceIntent);
                 }
             });
 

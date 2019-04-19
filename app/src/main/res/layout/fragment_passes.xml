@@ -148,10 +148,10 @@
             android:id="@+id/AlarmSetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="172dp"
+            android:layout_marginStart="148dp"
             android:layout_marginTop="4dp"
-            android:enabled="false"
             android:text="@string/set_alarm_button"
+            android:textColor="#000000"
             app:layout_constraintStart_toEndOf="@+id/visibleLabel"
             app:layout_constraintTop_toTopOf="parent" />
 
