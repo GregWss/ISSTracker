@@ -1,12 +1,15 @@
 package uqac.ca.isstracker.activities;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
@@ -93,11 +96,16 @@ public class PassesActivity extends AppCompatActivity
      */
     private ViewPager mViewPager;
 
+    private static final String CHANNEL_ID = "PASS_NOTIF_CHAN";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passes);
+
+        // Create the channel for future notifications
+        createNotificationChannel();
 
         Toolbar toolbar = findViewById(R.id.passesToolbar);
         setSupportActionBar(toolbar);
@@ -210,6 +218,21 @@ public class PassesActivity extends AppCompatActivity
         }
     }
 
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -306,6 +329,9 @@ public class PassesActivity extends AppCompatActivity
             //Check if there's not a 'sectionNumber-ish' pass
             if(sectionNumber > n2yoVisualPasses.getPasses().size())
             {
+                this.rootView.findViewById(R.id.AlarmSetButton).setVisibility(View.GONE);
+                this.rootView.findViewById(R.id.AlarmCancelButton).setVisibility(View.GONE);
+
                 this.rootView.findViewById(R.id.startPassLayout).setVisibility(View.GONE);
                 this.rootView.findViewById(R.id.maxHeightPassLayout).setVisibility(View.GONE);
                 this.rootView.findViewById(R.id.endPassLayout).setVisibility(View.GONE);
@@ -360,7 +386,6 @@ public class PassesActivity extends AppCompatActivity
             AlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO : change this legacy code
                     //Setting an intent with the date of the next pass
                     Intent serviceIntent = new Intent(getActivity(), AlarmService.class);
                     serviceIntent.putExtra("Day", passDay);

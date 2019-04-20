@@ -44,6 +44,8 @@
 
     <string name="set_alarm_button">Recall me</string>
     <string name="cancel_alarm_button">Cancel alarms</string>
+    <string name="channel_name">Pass Notifications Channel</string>
+    <string name="channel_description">Channel for notifications indicating the ISS is passing</string>
 
 
     <!-- ISS Observation information fragment -->
