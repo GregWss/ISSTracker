@@ -37,7 +37,6 @@ public class Alarm extends BroadcastReceiver {
 
         // Sending the notification
         createNotificationAndNotify(context);
-        //Toast.makeText(context, "Alarm ! " + intent.getStringExtra(EXTRA_ALARME), Toast.LENGTH_LONG).show();
 
         wl.release();
     }
@@ -49,7 +48,6 @@ public class Alarm extends BroadcastReceiver {
         Intent i = new Intent(context, Alarm.class);
 
         i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        i.putExtra("EXTRA_ALARME", "IL EST l'HEURE");
         PendingIntent pi = PendingIntent.getBroadcast(context, 1, i, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Calendar datePass = getTargetTime(day, hours, minutes);
@@ -91,7 +89,8 @@ public class Alarm extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setTicker("Look up, the ISS is passing near you !")
                 .setVibrate(new long[]{0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500})
-                .setLights(0xff00ffff, 500, 1000);
+                .setLights(0xff00ffff, 500, 1000)
+                .setAutoCancel(true);
 
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
