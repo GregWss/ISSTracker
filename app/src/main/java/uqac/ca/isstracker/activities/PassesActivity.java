@@ -218,15 +218,18 @@ public class PassesActivity extends AppCompatActivity
         }
     }
 
-    private void createNotificationChannel() {
+    private void createNotificationChannel()
+    {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
+
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
@@ -258,6 +261,12 @@ public class PassesActivity extends AppCompatActivity
             return true;
         }
 
+        if(id == R.id.action_cancel_recall)
+        {
+            stopAlarms(this);
+            Toast.makeText(this, "Next recall canceled", Toast.LENGTH_SHORT).show();
+        }
+
         if(id == R.id.home)
         {
             NavUtils.navigateUpFromSameTask(this);
@@ -268,22 +277,11 @@ public class PassesActivity extends AppCompatActivity
     }
 
     /**
-     * Call alarm service
-     * @param view
-     */
-    public void startAlarmService(View view) {
-
-        Intent serviceIntent = new Intent(this, AlarmService.class);
-        startService(serviceIntent);
-    }
-
-    /**
      * Stop all alarms
-     * @param view
      */
-    public void stopAlarms(View view) {
-
-        new Alarm().cancelAlarm(this);
+    public static void stopAlarms(Context context)
+    {
+        new Alarm().cancelAlarm(context);
     }
 
     /**
@@ -382,10 +380,12 @@ public class PassesActivity extends AppCompatActivity
             final int passMinutes = startDate.getMinutes();
 
             // Alarm set button
-            Button AlarmButton = this.rootView.findViewById(R.id.AlarmSetButton);
-            AlarmButton.setOnClickListener(new View.OnClickListener() {
+            Button alarmButton = this.rootView.findViewById(R.id.AlarmSetButton);
+            alarmButton.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
                     //Setting an intent with the date of the next pass
                     Intent serviceIntent = new Intent(getActivity(), AlarmService.class);
                     serviceIntent.putExtra("Day", passDay);
@@ -394,15 +394,19 @@ public class PassesActivity extends AppCompatActivity
 
                     // Start the service
                     getActivity().startService(serviceIntent);
+
+                    Toast.makeText(getActivity(), "You will be notified when this pass will occur", Toast.LENGTH_LONG).show();
                 }
             });
 
             // Alarm cancel button
-            Button CancelAlarmButton = this.rootView.findViewById(R.id.AlarmCancelButton);
-            CancelAlarmButton.setOnClickListener(new View.OnClickListener() {
+            Button cancelAlarmButton = this.rootView.findViewById(R.id.AlarmCancelButton);
+            cancelAlarmButton.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
-                public void onClick(View v) {
-                    new Alarm().cancelAlarm(getActivity());
+                public void onClick(View v)
+                {
+                    stopAlarms(getActivity());
                 }
             });
 

@@ -148,19 +148,23 @@
             android:id="@+id/AlarmSetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/set_alarm_button"
             android:textColor="#000000"
-            app:layout_constraintStart_toEndOf="@+id/visibleLabel"
+            app:layout_constraintEnd_toStartOf="@+id/AlarmCancelButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/AlarmCancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/cancel_alarm_button"
             android:textColor="#070707"
-            app:layout_constraintStart_toEndOf="@+id/AlarmSetButton"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>

@@ -33,6 +33,7 @@
     <string name="tab_text_2">Pass 2</string>
     <string name="tab_text_3">Pass 3</string>
     <string name="action_observation_info">How to observe the ISS</string>
+    <string name="action_cancel_recall">Cancel next recall</string>
     <string name="passes_section_format">Pass %1$d</string>
 
     <string name="pass_no_pass_label">no pass found</string>
@@ -42,7 +43,7 @@
     <string name="pass_no_pass_message">unable to find a %1$s pass, the iss seems not to cross your
         sky with at least %2$d seconds of visibility over the next %3$d day(s) as parameters.</string>
 
-    <string name="set_alarm_button">Recall me</string>
+    <string name="set_alarm_button">Notify me</string>
     <string name="cancel_alarm_button">Cancel alarms</string>
     <string name="channel_name">Pass Notifications Channel</string>
     <string name="channel_description">Channel for notifications indicating the ISS is passing</string>
