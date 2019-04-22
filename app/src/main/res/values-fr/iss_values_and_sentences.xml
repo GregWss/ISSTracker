@@ -2,10 +2,10 @@
 <resources>
     <!-- Static values and sentences -->
     <string-array name="iss_static_sentences">
-        <item><string name="iss_speed_sentence">iss max speed:</string></item>
-        <item><string name="iss_orbits_per_day_sentence">iss orbits per day:</string></item>
-        <item><string name="iss_launch_date_sentence">iss launch date:</string></item>
-        <item><string name="iss_mass_sentence">iss mass:</string></item>
+        <item><string name="iss_speed_sentence">vitesse max:</string></item>
+        <item><string name="iss_orbits_per_day_sentence">orbites par jour:</string></item>
+        <item><string name="iss_launch_date_sentence">date de lancement:</string></item>
+        <item><string name="iss_mass_sentence">masse:</string></item>
     </string-array>
 
     <string-array name="iss_static_values_metric">
@@ -24,8 +24,7 @@
 
     <!-- API sentences -->
     <!-- ISSAstros -->
-    <string name="iss_people_sentence">humans currently living in space:</string>
+    <string name="iss_people_sentence">humains vivant dans l\'espace:</string>
     <!-- N2yoSatPos -->
-    <string name="iss_altitude">iss altitude:</string>
-
+    <string name="iss_altitude">altitude:</string>
 </resources>

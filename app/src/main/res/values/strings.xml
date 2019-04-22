@@ -1,11 +1,11 @@
 <resources>
     <!-- Activities -->
-    <string name="app_name">ISSTracker</string>
+    <string name="app_name" translatable="false">ISSTracker</string>
     <string name="activity_humans_labels">Humans</string>
     <string name="activity_map_labels">Map</string>
     <string name="activity_settings_label">Settings</string>
-    <string name="iss_pos_request_btn">Get position!</string>
-    <string name="iss_request_text">Get your first position</string>
+    <string name="iss_pos_request_btn" translatable="false">Get position!</string>
+    <string name="iss_request_text" translatable="false">Get your first position</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_passes">ISS passes in your sky</string>
     <string name="title_activity_home">Home</string>
@@ -24,8 +24,8 @@
 
     <!-- Home activity -->
 
-    <string name="sentence">iss speed:</string>
-    <string name="value">7.66 km/s</string>
+    <string name="sentence" translatable="false">iss speed:</string>
+    <string name="value" translatable="false">7.66 km/s</string>
 
     <!-- Passes activity -->
 
@@ -33,51 +33,50 @@
     <string name="tab_text_2">Pass 2</string>
     <string name="tab_text_3">Pass 3</string>
     <string name="action_observation_info">How to observe the ISS</string>
-    <string name="action_cancel_recall">Cancel next recall</string>
     <string name="passes_section_format">Pass %1$d</string>
 
     <string name="pass_no_pass_label">no pass found</string>
     <string name="pass_count_first">first</string>
     <string name="pass_count_second">second</string>
     <string name="pass_count_third">third</string>
-    <string name="pass_no_pass_message">unable to find a %1$s pass, the iss seems not to cross your
-        sky with at least %2$d seconds of visibility over the next %3$d day(s) as parameters.</string>
+    <string name="pass_no_pass_message">unable to find a %1$s pass, the iss seems not to cross your sky with at least %2$d seconds of visibility over the next %3$d day(s) as parameters.</string>
 
     <string name="set_alarm_button">Notify me</string>
     <string name="cancel_alarm_button">Cancel alarms</string>
-    <string name="channel_name">Pass Notifications Channel</string>
-    <string name="channel_description">Channel for notifications indicating the ISS is passing</string>
+    <string name="time_at_label">at</string>
+    <string name="channel_name" translatable="false">Pass Notifications Channel</string>
+    <string name="channel_description" translatable="false">Channel for notifications indicating the ISS is passing</string>
 
 
     <!-- ISS Observation information fragment -->
 
-    <string name="hello_fragment">Hello fragment</string>
+    <string name="hello_fragment" translatable="false">Hello fragment</string>
     <string name="iss_observe_info_title">What does all this sighting information mean?</string>
 
-    <string name="iss_observe_info_time_title">time</string>
+    <string name="iss_observe_info_time_title" translatable="false">time</string>
     <string name="iss_observe_info_time">Time is when the sighting opportunity will begin in your
         local time zone. All sightings will occur within a few hours before or after sunrise or
         sunset. This is the optimum viewing period as the sun reflects off the space station and
         contrasts against the darker sky.</string>
 
-    <string name="iss_observe_info_visible_title">visible</string>
+    <string name="iss_observe_info_visible_title" translatable="false">visible</string>
     <string name="iss_observe_info_visible">Visible is the maximum time period the space station is
         visible before crossing back below the horizon.</string>
 
-    <string name="iss_observe_info_maxheight_title">max height</string>
+    <string name="iss_observe_info_maxheight_title" translatable="false">max height</string>
     <string name="iss_observe_info_maxheight">Max Height is measured in degrees (also known as
         elevation). It represents the height of the space station from the horizon in the night
         sky. The horizon is at zero degrees, and directly overhead is ninety degrees. If you hold
         your fist at arm’s length and place your fist resting on the horizon, the top will be about
         10 degrees.</string>
 
-    <string name="iss_observe_info_appears_title">appears</string>
+    <string name="iss_observe_info_appears_title" translatable="false">appears</string>
     <string name="iss_observe_info_appears">Appears is the location in the sky where the station
         will be visible first. This value, like maximum height, also is measured in degrees from
         the horizon. The letters represent compass directions - N is north, WNW is west by
         northwest, and so on.</string>
 
-    <string name="iss_observe_info_disappears_title">disappears</string>
+    <string name="iss_observe_info_disappears_title" translatable="false">disappears</string>
     <string name="iss_observe_info_disappears">Disappears represents where in the night sky the
         International Space Station will leave your field of view.</string>
 
@@ -95,9 +94,9 @@
 
     <!-- Nav drawer -->
 
-    <string name="nav_drawer_open">Open drawer</string>
-    <string name="nav_drawer_close">Close drawer</string>
-    <string name="nav_header_title">iss tRAcKer</string>
+    <string name="nav_drawer_open" translatable="false">Open drawer</string>
+    <string name="nav_drawer_close" translatable="false">Close drawer</string>
+    <string name="nav_header_title" translatable="false">iss tRAcKer</string>
     <string name="nav_menu_humans">Home</string>
     <string name="nav_menu_map">Map</string>
     <string name="nav_menu_passes">Passes</string>
@@ -112,10 +111,9 @@
     <string name="location_error">unable to retrieve your position</string>
 
     <!-- Astronaut -->
-    <string name="countryFlagContentDescription">Country flag this astronaut is from</string>
-    <string name="astronautTwitterContentDescription">Icon to link to astronaut\'s twitter page</string>
-    <string name="astronautWikiContentDescription">Icon to link to astronaut\'s wiki page</string>
-    <string name="launch_date">Launch date :</string>
+    <string name="countryFlagContentDescription" translatable="false">Country flag this astronaut is from</string>
+    <string name="astronautTwitterContentDescription" translatable="false">Icon to link to astronaut\'s twitter page</string>
+    <string name="astronautWikiContentDescription" translatable="false">Icon to link to astronaut\'s wiki page</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -128,4 +126,6 @@
     <string name="days_scope_title">Days scope</string>
     <string name="days_scope_summary">Days scope within to search passes</string>
     <string name="days_scope_unit">day(s)</string>
+    <string name="action_cancel_recall">Cancel next recall</string>
+
 </resources>

@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/major_mono_display_regular"
-        android:text="at"
+        android:text="@string/time_at_label"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorPrimaryText"
         android:textIsSelectable="true"

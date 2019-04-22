@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="N2YO_API_HEAD">http://www.n2yo.com/rest/v1/satellite/visualpasses/25544/</string>
-    <string name="N2YO_API_KEY">XSLP3D-VBZHHR-4MHVUR-3YE5</string>
+    <string name="N2YO_API_HEAD" translatable="false">http://www.n2yo.com/rest/v1/satellite/visualpasses/25544/</string>
+    <string name="N2YO_API_KEY" translatable="false">XSLP3D-VBZHHR-4MHVUR-3YE5</string>
 </resources>
